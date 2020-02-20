@@ -1,0 +1,39 @@
+lanit:
+  global:
+    appVersion: DEMO-K1
+    debug: true
+    testKostyaAge: 30
+    log:
+      level: INFO
+spring:
+  application:
+    name: ${lanit.global.appVersion}
+camunda:
+  bpm:
+    application:
+      delete-upon-undeploy: false
+      scan-for-process-definitions: false
+      deploy-changed-only: true
+      resume-previous-versions: true
+      resume-previous-by: a value
+    job-execution:
+      enabled: true
+    metrics:
+      enabled: false
+      db-reporter-activate: false
+
+#camunda.bpm.auto-deployment-enabled: false
+### logging ###
+logging:
+  level:
+    root: ${lanit.global.log.level}
+    executableSql: ${lanit.global.log.level}
+    org:
+      hibernate:
+        engine:
+          transaction: ${lanit.global.log.level}
+        SQL: ${lanit.global.log.level}
+      springframework:
+        web: ${lanit.global.log.level}
+    ru:
+      lanit: ${lanit.global.log.level}
