@@ -19,20 +19,20 @@ public class askBpmPageRest {
 
     @RequestMapping(value = "/askBpmPagePost", method = RequestMethod.POST)
     public ModelAndView formPost(@ModelAttribute("kostyaBpmData") KostyaBpmData form,
-                                 BindingResult result) {
+                                 BindingResult result) throws InterruptedException {
         log.info("[Kostya-RestController] kostyaBpmData = " + form);
         statusData.getKostyaBpmDataFromUser().setName(form.getName());
         statusData.getKostyaBpmDataFromUser().setName(form.getKostyaAge());
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("kostyaStatus", "");
-        mv.setViewName("response_page");
         statusData.doUserUnlock();
+        statusData.doEngineWait();
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("kostyaStatus", statusData.getBpmStatusResult());
+        mv.setViewName("response_page");
         return mv;
     }
 
     @RequestMapping(value = "/askBpmPageGet", method = RequestMethod.GET)
     public ModelAndView formGet() throws InterruptedException {
-        statusData.doEngineWait();
         ModelAndView mv = new ModelAndView();
         KostyaBpmData model = new KostyaBpmData();
         statusData.setKostyaBpmDataFromUser(model);

@@ -4,7 +4,7 @@ lanit:
     debug: true
     testKostyaAge: 30
     log:
-      level: INFO
+      level: DEBUG
 spring:
   application:
     name: ${lanit.global.appVersion}
