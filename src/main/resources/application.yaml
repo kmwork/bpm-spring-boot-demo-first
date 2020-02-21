@@ -37,3 +37,5 @@ logging:
         web: ${lanit.global.log.level}
     ru:
       lanit: ${lanit.global.log.level}
+    sun: INFO
+    javax: INFO
