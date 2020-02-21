@@ -1,0 +1,8 @@
+как так
+значение переменной ID_OBJECT не уникально!!!!
+кривая IDEA 2019.3?
+----------------------
+public class SessionBpmStatusDataQuery {
+
+    private final static long ID_OBJECT = System.nanoTime();
+
