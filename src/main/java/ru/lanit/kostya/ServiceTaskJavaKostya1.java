@@ -23,9 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.lanit.kostya.dao.StatusData;
 
-import java.awt.*;
-import java.net.URI;
-
 public class ServiceTaskJavaKostya1 implements JavaDelegate {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
@@ -34,7 +31,8 @@ public class ServiceTaskJavaKostya1 implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        Desktop.getDesktop().browse(new URI("http://localhost:8080/k2/askBpmPageGet"));
+        // Desktop.getDesktop().browse(new URI("http://localhost:8080/k2/askBpmPageGet"));
+        statusData.doUserWait();
 
 
     }

@@ -32,11 +32,11 @@ public class ServiceTaskJavaKostyaShowError implements JavaDelegate {
   public void execute(DelegateExecution execution) throws Exception {
     logger.info("[Show-Error]. I am sleep start: {}", execution);
     try {
-      for (int i = 0; i < 2; i++) {
-        Thread.sleep(500);
-        logger.info("[Show-Error]. Work by indexError=" + i + " : {}", execution);
-      }
-      logger.info("[Show-Error]. I finish sleep: {}", execution);
+//      for (int i = 0; i < 2; i++) {
+//        Thread.sleep(500);
+//        logger.info("[Show-Error]. Work by indexError=" + i + " : {}", execution);
+//      }
+        logger.info("[Show-Error]. I finish sleep: {}", execution);
 
     } finally {
       statusData.setBpmStatusResult("small kostya age, age < 21");

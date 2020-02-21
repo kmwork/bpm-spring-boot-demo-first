@@ -32,10 +32,10 @@ public class ServiceTaskJavaKostyaShowOk21 implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         logger.info("[Show-OK]. I am sleep start: {}", execution);
         try {
-            for (int i = 0; i < 1; i++) {
-                Thread.sleep(5);
-                logger.info("[Show-OK]. Work by index=" + i + " : {}", execution);
-            }
+//            for (int i = 0; i < 1; i++) {
+//                Thread.sleep(5);
+//                logger.info("[Show-OK]. Work by index=" + i + " : {}", execution);
+//            }
             logger.info("[Show-OK]. I finish sleep: {}", execution);
 
 

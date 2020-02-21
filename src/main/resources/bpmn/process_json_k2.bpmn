@@ -38,22 +38,17 @@
       <incoming>SequenceFlow_4</incoming>
       <outgoing>SequenceFlow_6</outgoing>
     </serviceTask>
-    <sequenceFlow id="Flow_08np4sr" sourceRef="Task_K1" targetRef="WaitUserJspKostyaID-001"/>
     <sequenceFlow id="Flow_05lz9iu" sourceRef="WaitUserJspKostyaID-001" targetRef="ExclusiveGateway_1"/>
     <serviceTask id="WaitUserJspKostyaID-001" name="Wait User" camunda:class="ru.lanit.kostya.ServiceTaskJavaKostya2">
-      <incoming>Flow_08np4sr</incoming>
+      <incoming>Flow_1z0k0p3</incoming>
       <outgoing>Flow_05lz9iu</outgoing>
     </serviceTask>
-    <sequenceFlow id="SequenceFlow_1" name="" sourceRef="StartEvent_1" targetRef="Activity_YandexOpen"/>
-    <userTask id="Activity_YandexOpen" name="do: Open Yandex" camunda:formKey="app:k2/askBpmPageGet">
+    <sequenceFlow id="SequenceFlow_1" name="" sourceRef="StartEvent_1" targetRef="Activity_0ns0pqn"/>
+    <serviceTask id="Activity_0ns0pqn" name="Open Browser" camunda:class="ru.lanit.kostya.ServiceTaskJavaKostya1">
       <incoming>SequenceFlow_1</incoming>
-      <outgoing>Flow_1ed4wsm</outgoing>
-    </userTask>
-    <sequenceFlow id="Flow_1ed4wsm" sourceRef="Activity_YandexOpen" targetRef="Task_K1"/>
-    <receiveTask id="Task_K1" name="Open Browser with URL" messageRef="Message_1dhh3yb">
-      <incoming>Flow_1ed4wsm</incoming>
-      <outgoing>Flow_08np4sr</outgoing>
-    </receiveTask>
+      <outgoing>Flow_1z0k0p3</outgoing>
+    </serviceTask>
+    <sequenceFlow id="Flow_1z0k0p3" sourceRef="Activity_0ns0pqn" targetRef="WaitUserJspKostyaID-001"/>
   </process>
   <message id="Message_1dhh3yb" name="Message_KostyaAge01"/>
   <bpmndi:BPMNDiagram id="_BPMNDiagram_3">
@@ -116,10 +111,6 @@
       <bpmndi:BPMNShape id="Activity_0v6m5uv_di" bpmnElement="TK2-ShowOK21">
         <omgdc:Bounds x="910" y="90" width="100" height="80"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_08np4sr_di" bpmnElement="Flow_08np4sr">
-        <omgdi:waypoint x="570" y="210"/>
-        <omgdi:waypoint x="650" y="210"/>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_05lz9iu_di" bpmnElement="Flow_05lz9iu">
         <omgdi:waypoint x="750" y="210"/>
         <omgdi:waypoint x="800" y="210"/>
@@ -129,21 +120,19 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1">
         <omgdi:waypoint x="218" y="200"/>
-        <omgdi:waypoint x="280" y="200"/>
+        <omgdi:waypoint x="340" y="200"/>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds x="262" y="210" width="6" height="6"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Activity_196wd5p_di" bpmnElement="Activity_YandexOpen">
-        <omgdc:Bounds x="280" y="170" width="100" height="80"/>
+      <bpmndi:BPMNShape id="Activity_0z68kj1_di" bpmnElement="Activity_0ns0pqn">
+        <omgdc:Bounds x="340" y="160" width="100" height="80"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_1ed4wsm_di" bpmnElement="Flow_1ed4wsm">
-        <omgdi:waypoint x="380" y="210"/>
-        <omgdi:waypoint x="470" y="210"/>
+      <bpmndi:BPMNEdge id="Flow_1z0k0p3_di" bpmnElement="Flow_1z0k0p3">
+        <omgdi:waypoint x="440" y="210"/>
+        <omgdi:waypoint x="434" y="210"/>
+        <omgdi:waypoint x="650" y="210"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Activity_12dxob4_di" bpmnElement="Task_K1">
-        <omgdc:Bounds x="470" y="170" width="100" height="80"/>
-      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </definitions>
