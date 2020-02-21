@@ -1,7 +1,7 @@
 package ru.lanit.kostya.controllers;
 
 import lombok.extern.slf4j.Slf4j;
-import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.ProcessEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import ru.lanit.kostya.beans.Showcase;
 import ru.lanit.kostya.dao.KostyaBpmData;
 import ru.lanit.kostya.dao.StatusData;
 
@@ -22,11 +21,7 @@ public class askBpmPageRest {
 
 
     @Autowired
-    private RuntimeService runtimeService;
-
-    @Autowired
-    private Showcase showcase;
-
+    private ProcessEngine camunda;
 
     @RequestMapping(value = "/askBpmPagePost", method = RequestMethod.POST)
     public ModelAndView formPost(@ModelAttribute("kostyaBpmData") KostyaBpmData form,
@@ -42,12 +37,11 @@ public class askBpmPageRest {
 //                .setVariable("messageVar_KostyaAge", form.getKostyaAge())
 //                .correlate();
 
-        String processInstanceId = showcase.getProcessInstanceId();
-        runtimeService.createMessageCorrelation("KostyaMessageV01")
-                .processInstanceBusinessKey("Message-K-ID1")
-                /*.setVariable("messageVar_KostyaAge", form.getKostyaAge())*/
-                .processInstanceId(processInstanceId).
-                correlate();
+
+        camunda.getRuntimeService().createMessageCorrelation("MessageNameKostyaAge01")
+                .correlate();
+
+        statusData.doEngineWait();
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("kostyaStatus", statusData.getBpmStatusResult());

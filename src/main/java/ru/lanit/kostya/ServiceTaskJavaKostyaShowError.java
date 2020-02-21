@@ -40,7 +40,7 @@ public class ServiceTaskJavaKostyaShowError implements JavaDelegate {
 
     } finally {
       statusData.setBpmStatusResult("small kostya age, age < 21");
-      //statusData.doEngineUnlock();
+      statusData.doEngineUnlock();
     }
 
   }

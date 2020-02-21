@@ -23,25 +23,26 @@ public class StatusData {
     private AtomicBoolean engineLock = new AtomicBoolean(false);
     private AtomicBoolean userLock = new AtomicBoolean(false);
 
-//    public void doEngineUnlock() {
-//        log.info(PREFIX_LOG + "[====]: engine unlock");
-//        engineLock.set(false);
-//    }
-//
+    public void doEngineUnlock() {
+        log.info(PREFIX_LOG + "[====]: engine unlock");
+        engineLock.set(false);
+    }
+
+    //
 //    public void doUserUnlock() {
 //        log.info(PREFIX_LOG + "[----]: user unlock");
 //        userLock.set(false);
 //    }
 //
 //
-//    public void doEngineWait() throws InterruptedException {
-//        engineLock.set(true);
-//        do {
-//            log.info(PREFIX_LOG + "[++++]: wait engine....");
-//            Thread.sleep(1000);
-//        } while (engineLock.get());
-//
-//    }
+    public void doEngineWait() throws InterruptedException {
+        engineLock.set(true);
+        do {
+            log.info(PREFIX_LOG + "[++++]: wait engine....");
+            Thread.sleep(1000);
+        } while (engineLock.get());
+
+    }
 //
 //
 //    public void doUserWait() throws InterruptedException {

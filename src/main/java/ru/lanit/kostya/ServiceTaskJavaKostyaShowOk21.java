@@ -41,7 +41,7 @@ public class ServiceTaskJavaKostyaShowOk21 implements JavaDelegate {
 
         } finally {
             statusData.setBpmStatusResult("Success kostya age, BIG MAN.  Kostya >= 21");
-            //statusData.doEngineUnlock();
+            statusData.doEngineUnlock();
         }
 
     }
