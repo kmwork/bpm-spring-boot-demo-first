@@ -35,14 +35,14 @@ public class ServiceTaskJavaKostya2 implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
 
-        //statusData.doUserWait();
+        statusData.doUserWait();
         SpinJsonNode jsonCustomer = JSON("{ \"name\": -1, \"kostyaAgeBPM\": -1}");
 
-        jsonCustomer.prop("name", "kkk");
-        jsonCustomer.prop("kostyaAgeBPM", 390);
+        //jsonCustomer.prop("name", "kkk");
+        //jsonCustomer.prop("kostyaAgeBPM", 390);
 
-        //jsonCustomer.prop("name", statusData.getKostyaBpmDataFromUser().getName());
-        //jsonCustomer.prop("kostyaAgeBPM", Integer.valueOf(statusData.getKostyaBpmDataFromUser().getKostyaAge()));
+        jsonCustomer.prop("name", statusData.getKostyaBpmDataFromUser().getName());
+        jsonCustomer.prop("kostyaAgeBPM", Integer.valueOf(statusData.getKostyaBpmDataFromUser().getKostyaAge()));
 
         LOG.info("JSON customer: {}", jsonCustomer);
         execution.setVariable("customer", jsonCustomer);
