@@ -20,7 +20,8 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.lanit.kostya.dao.SessionBpmStatusData;
+import ru.lanit.kostya.dao.BpmStatusForJSP;
+import ru.lanit.kostya.dao.SessionBpmStatusDataQuery;
 
 public class ServiceTaskJavaKostyaShowOk21 implements JavaDelegate {
 
@@ -30,9 +31,9 @@ public class ServiceTaskJavaKostyaShowOk21 implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         logger.info("[Show-OK]. I am sleep start: {}", execution);
-        SessionBpmStatusData sessionBpmStatusData = SessionBpmStatusData.getInstance();
-        sessionBpmStatusData.setBpmStatusResult("Success kostya age, BIG MAN.  Kostya >= 21");
-        sessionBpmStatusData.doEngineUnlock();
+        SessionBpmStatusDataQuery query = SessionBpmStatusDataQuery.getInstance();
+        BpmStatusForJSP userMessage = new BpmStatusForJSP(false, "welcome to lanit. succes. kostya is big");
+        query.addMessage(userMessage);
 
     }
 

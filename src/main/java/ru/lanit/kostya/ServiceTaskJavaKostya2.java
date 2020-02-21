@@ -22,7 +22,6 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.spin.json.SpinJsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.lanit.kostya.dao.SessionBpmStatusData;
 
 import static org.camunda.spin.Spin.JSON;
 
@@ -30,14 +29,12 @@ public class ServiceTaskJavaKostya2 implements JavaDelegate {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    private SessionBpmStatusData sessionBpmStatusData = SessionBpmStatusData.getInstance();
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
 
         SpinJsonNode jsonCustomer = JSON("{ \"name\": -1, \"kostyaAgeBPM\": -1}");
 
-        sessionBpmStatusData.doEngineLock();
         jsonCustomer.prop("kostyaAgeBPM", Integer.valueOf(execution.getVariable("messageVar_KostyaAge").toString()));
         jsonCustomer.prop("name", execution.getVariable("messageVar_NameUser").toString());
 

@@ -15,6 +15,8 @@
 <div class="lc-block">
 
     <h1> Finish</h1>
+    <p> Kostya-Status: "${timeID}"</p>
+    <p> is error: "${isError}"</p>
     <p> Kostya-Status: "${kostyaStatus}"</p>
 
 
