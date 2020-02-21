@@ -1,12 +1,15 @@
 package ru.lanit.kostya.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import org.camunda.bpm.engine.RuntimeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import ru.lanit.kostya.beans.Showcase;
 import ru.lanit.kostya.dao.KostyaBpmData;
 import ru.lanit.kostya.dao.StatusData;
 
@@ -17,14 +20,35 @@ public class askBpmPageRest {
 
     private StatusData statusData = StatusData.getInstance();
 
+
+    @Autowired
+    private RuntimeService runtimeService;
+
+    @Autowired
+    private Showcase showcase;
+
+
     @RequestMapping(value = "/askBpmPagePost", method = RequestMethod.POST)
     public ModelAndView formPost(@ModelAttribute("kostyaBpmData") KostyaBpmData form,
                                  BindingResult result) throws InterruptedException {
         log.info("[Kostya-RestController] kostyaBpmData = " + form);
         statusData.getKostyaBpmDataFromUser().setName(form.getName());
         statusData.getKostyaBpmDataFromUser().setName(form.getKostyaAge());
-        statusData.doUserUnlock();
-        statusData.doEngineWait();
+        //statusData.doUserUnlock();
+        //statusData.doEngineWait();
+
+//        runtimeService.createMessageCorrelation("process_json_k2")
+//                .processInstanceBusinessKey("Message-K-ID1")
+//                .setVariable("messageVar_KostyaAge", form.getKostyaAge())
+//                .correlate();
+
+        String processInstanceId = showcase.getProcessInstanceId();
+        runtimeService.createMessageCorrelation("KostyaMessageV01")
+                .processInstanceBusinessKey("Message-K-ID1")
+                /*.setVariable("messageVar_KostyaAge", form.getKostyaAge())*/
+                .processInstanceId(processInstanceId).
+                correlate();
+
         ModelAndView mv = new ModelAndView();
         mv.addObject("kostyaStatus", statusData.getBpmStatusResult());
         mv.setViewName("response_page");
