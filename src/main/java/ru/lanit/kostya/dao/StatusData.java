@@ -35,7 +35,7 @@ public class StatusData {
 
 
     public void doEngineWait() throws InterruptedException {
-
+        engineLock.set(true);
         do {
             log.info(PREFIX_LOG + "[++++]: wait engine....");
             Thread.sleep(1000);
