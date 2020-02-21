@@ -20,19 +20,20 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.lanit.kostya.dao.StatusData;
+import ru.lanit.kostya.dao.SessionBpmStatusData;
 
 
 public class ServiceTaskJavaKostyaShowError implements JavaDelegate {
 
   private final Logger logger = LoggerFactory.getLogger(this.getClass());
-  private StatusData statusData = StatusData.getInstance();
+
 
   @Override
   public void execute(DelegateExecution execution) throws Exception {
-    logger.info("[Show-Error]. I am sleep start: {}", execution);
-      statusData.setBpmStatusResult("small kostya age, age < 21");
-      statusData.doEngineUnlock();
+      logger.info("[Show-Error]. I am sleep start: {}", execution);
+      SessionBpmStatusData sessionBpmStatusData = SessionBpmStatusData.getInstance();
+      sessionBpmStatusData.setBpmStatusResult("small kostya age, age < 21");
+      sessionBpmStatusData.doEngineUnlock();
 
   }
 
