@@ -1,3 +1,15 @@
+прошу помощи
+написал проект под JDK 13 (пробовал и на Oracle JDK 8)
+суть одна
+кешируется в проц CPU переменная ID_OBJECT и как то instance класса SessionBpmStatusDataQuery
+хотя паттерн Signton
+
+грежу на Lombok + IDE IDEA
+что думать уже не знаю
+
+в логах странные разные ID_OJECT хотя по логике не может быть такого
+
+
 как так
 значение переменной ID_OBJECT не уникально!!!!
 кривая IDEA 2019.3?
@@ -5,4 +17,12 @@
 public class SessionBpmStatusDataQuery {
 
     private final static long ID_OBJECT = System.nanoTime();
+
+
+в логах 2020-02-21 20:53:41.125  INFO 26506 --- [nio-8080-exec-2] r.l.k.dao.SessionBpmStatusDataQuery      : [Kostya:LOCKER] [++++]: add message to user: val to ID_OBJECT = 42952444262731
+        2020-02-21 20:53:41.162  INFO 26506 --- [nio-8080-exec-2] r.l.k.dao.SessionBpmStatusDataQuery      : [Kostya:LOCKER] [----]: stating for read message from ID_OBJECT  = 42952802225624
+
+
+класс в пути
+https://github.com/kmwork/bpm-spring-boot-demo-first/blob/kostya-demo/src/main/java/ru/lanit/kostya/dao/SessionBpmStatusDataQuery.java
 
