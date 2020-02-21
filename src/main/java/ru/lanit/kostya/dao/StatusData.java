@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
 public class StatusData {
@@ -17,19 +17,16 @@ public class StatusData {
 
     @Getter
     private static StatusData instance = new StatusData();
-    private AtomicBoolean engineLock = new AtomicBoolean(false);
+    private ReentrantLock engineLock = new ReentrantLock();
 
     public void doEngineUnlock() {
         log.info(PREFIX_LOG + "[====]: engine unlock");
-        engineLock.set(false);
+        engineLock.unlock();
     }
 
-    public void doEngineWait() throws InterruptedException {
-        engineLock.set(true);
-        do {
-            log.info(PREFIX_LOG + "[++++]: wait engine....");
-            Thread.sleep(1000);
-        } while (engineLock.get());
+    public void doEngineLock() throws InterruptedException {
+        log.info(PREFIX_LOG + "[++++]: engine lock");
+        engineLock.lock();
 
     }
 }

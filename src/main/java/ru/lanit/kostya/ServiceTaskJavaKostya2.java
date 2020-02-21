@@ -39,10 +39,7 @@ public class ServiceTaskJavaKostya2 implements JavaDelegate {
         //statusData.doUserWait();
         SpinJsonNode jsonCustomer = JSON("{ \"name\": -1, \"kostyaAgeBPM\": -1}");
 
-        //jsonCustomer.prop("name", "kkk");
-        //jsonCustomer.prop("kostyaAgeBPM", 390);
-        //Thread.sleep(5000);
-
+        statusData.doEngineLock();
         jsonCustomer.prop("kostyaAgeBPM", Integer.valueOf(execution.getVariable("messageVar_KostyaAge").toString()));
         jsonCustomer.prop("name", execution.getVariable("messageVar_NameUser").toString());
 

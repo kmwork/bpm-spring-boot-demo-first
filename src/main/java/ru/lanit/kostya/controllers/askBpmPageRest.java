@@ -34,13 +34,11 @@ public class askBpmPageRest {
                 .setVariable("messageVar_NameUser", form.getName())
                 .correlate();
 
-        statusData.doEngineWait();
+        statusData.doEngineLock();
 
         ModelAndView mv = new ModelAndView();
 
-        Thread.sleep(5000);
         mv.addObject("kostyaStatus", statusData.getBpmStatusResult());
-        //mv.addObject("kostyaStatus", ");
         mv.setViewName("response_page");
         return mv;
     }
