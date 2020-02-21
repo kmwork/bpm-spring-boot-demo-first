@@ -5,130 +5,133 @@
              id="sid-0b0aaa25-3baf-4875-9d7a-0907d599a9ef" targetNamespace="http://camunda.org/examples"
              exporter="Camunda Modeler" exporterVersion="3.6.0"
              xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
-  <process id="process_json_k2" name="process_json_k2" isExecutable="true">
-    <startEvent id="StartEvent_1" name="Customer entered" camunda:formKey="embedded:app:forms/start-form.html">
-      <outgoing>Flow_12badi4</outgoing>
-    </startEvent>
-    <exclusiveGateway id="ExclusiveGateway_1" name="kostyaAgeBPM is valid ?">
-      <incoming>Flow_0say2o8</incoming>
-      <outgoing>SequenceFlow_5</outgoing>
-      <outgoing>SequenceFlow_4</outgoing>
-    </exclusiveGateway>
-    <sequenceFlow id="SequenceFlow_5" name="&#60; 21" sourceRef="ExclusiveGateway_1" targetRef="TK3-ShowError">
-      <conditionExpression xsi:type="tFormalExpression">${customer.prop("kostyaAgeBPM").numberValue() &lt; 21 }
-      </conditionExpression>
-    </sequenceFlow>
-    <endEvent id="EndSuccess-10" name="EndSuccess-10">
-      <incoming>SequenceFlow_6</incoming>
-    </endEvent>
-    <endEvent id="EndError-20" name="EndError-20">
-      <incoming>SequenceFlow_7</incoming>
-    </endEvent>
-    <sequenceFlow id="SequenceFlow_7" name="" sourceRef="TK3-ShowError" targetRef="EndError-20"/>
-    <sequenceFlow id="SequenceFlow_6" name="" sourceRef="TK2-ShowOK21" targetRef="EndSuccess-10"/>
-    <sequenceFlow id="SequenceFlow_4" name="&#62; 21" sourceRef="ExclusiveGateway_1" targetRef="TK2-ShowOK21">
-      <conditionExpression xsi:type="tFormalExpression">${customer.prop("kostyaAgeBPM").numberValue() &gt;= 21}
-      </conditionExpression>
-    </sequenceFlow>
-    <serviceTask id="TK3-ShowError" name="TK3-ShowError" camunda:class="ru.lanit.kostya.ServiceTaskJavaKostyaShowError">
-      <incoming>SequenceFlow_5</incoming>
-      <outgoing>SequenceFlow_7</outgoing>
-    </serviceTask>
-    <serviceTask id="TK2-ShowOK21" name="TK2-ShowOK21" camunda:class="ru.lanit.kostya.ServiceTaskJavaKostyaShowOk21">
-      <incoming>SequenceFlow_4</incoming>
-      <outgoing>SequenceFlow_6</outgoing>
-    </serviceTask>
-    <userTask id="Activity_User01" name="Manual Sent Form JSP">
-      <incoming>Flow_18sdyj5</incoming>
-      <outgoing>Flow_0say2o8</outgoing>
-    </userTask>
-    <receiveTask id="WaitUserJspKostyaID-001" name="Wait User" messageRef="Message-K-ID1">
-      <incoming>Flow_12badi4</incoming>
-      <outgoing>Flow_18sdyj5</outgoing>
-    </receiveTask>
-    <sequenceFlow id="Flow_12badi4" sourceRef="StartEvent_1" targetRef="WaitUserJspKostyaID-001"/>
-    <sequenceFlow id="Flow_18sdyj5" sourceRef="WaitUserJspKostyaID-001" targetRef="Activity_User01"/>
-    <sequenceFlow id="Flow_0say2o8" sourceRef="Activity_User01" targetRef="ExclusiveGateway_1"/>
-  </process>
-  <message id="Message-K-ID1" name="MessageNameKostyaAge01"/>
+    <process id="process_json_k2" name="process_json_k2" isExecutable="true">
+        <startEvent id="StartEvent_1" name="Customer entered" camunda:formKey="embedded:app:forms/start-form.html">
+            <outgoing>Flow_12badi4</outgoing>
+        </startEvent>
+        <exclusiveGateway id="ExclusiveGateway_1" name="kostyaAgeBPM is valid ?">
+            <incoming>Flow_0say2o8</incoming>
+            <outgoing>SequenceFlow_5</outgoing>
+            <outgoing>SequenceFlow_4</outgoing>
+        </exclusiveGateway>
+        <sequenceFlow id="SequenceFlow_5" name="&#60; 21" sourceRef="ExclusiveGateway_1" targetRef="TK3-ShowError">
+            <conditionExpression xsi:type="tFormalExpression">${customer.prop("kostyaAgeBPM").numberValue() &lt; 21 }
+            </conditionExpression>
+        </sequenceFlow>
+        <endEvent id="EndSuccess-10" name="EndSuccess-10">
+            <incoming>SequenceFlow_6</incoming>
+        </endEvent>
+        <endEvent id="EndError-20" name="EndError-20">
+            <incoming>SequenceFlow_7</incoming>
+        </endEvent>
+        <sequenceFlow id="SequenceFlow_7" name="" sourceRef="TK3-ShowError" targetRef="EndError-20"/>
+        <sequenceFlow id="SequenceFlow_6" name="" sourceRef="TK2-ShowOK21" targetRef="EndSuccess-10"/>
+        <sequenceFlow id="SequenceFlow_4" name="&#62; 21" sourceRef="ExclusiveGateway_1" targetRef="TK2-ShowOK21">
+            <conditionExpression xsi:type="tFormalExpression">${customer.prop("kostyaAgeBPM").numberValue() &gt;= 21}
+            </conditionExpression>
+        </sequenceFlow>
+        <serviceTask id="TK3-ShowError" name="TK3-ShowError"
+                     camunda:class="ru.lanit.kostya.ServiceTaskJavaKostyaShowError">
+            <incoming>SequenceFlow_5</incoming>
+            <outgoing>SequenceFlow_7</outgoing>
+        </serviceTask>
+        <serviceTask id="TK2-ShowOK21" name="TK2-ShowOK21"
+                     camunda:class="ru.lanit.kostya.ServiceTaskJavaKostyaShowOk21">
+            <incoming>SequenceFlow_4</incoming>
+            <outgoing>SequenceFlow_6</outgoing>
+        </serviceTask>
+        <receiveTask id="WaitUserJspKostyaID-001" name="Wait User" messageRef="Message-K-ID1">
+            <incoming>Flow_12badi4</incoming>
+            <outgoing>Flow_18sdyj5</outgoing>
+        </receiveTask>
+        <sequenceFlow id="Flow_12badi4" sourceRef="StartEvent_1" targetRef="WaitUserJspKostyaID-001"/>
+        <sequenceFlow id="Flow_18sdyj5" sourceRef="WaitUserJspKostyaID-001" targetRef="Activity_User01"/>
+        <sequenceFlow id="Flow_0say2o8" sourceRef="Activity_User01" targetRef="ExclusiveGateway_1"/>
+        <serviceTask id="Activity_User01" name="Manual Sent Form JSP"
+                     camunda:class="ru.lanit.kostya.ServiceTaskJavaKostya2">
+            <incoming>Flow_18sdyj5</incoming>
+            <outgoing>Flow_0say2o8</outgoing>
+        </serviceTask>
+    </process>
+    <message id="Message-K-ID1" name="MessageNameKostyaAge01"/>
   <bpmndi:BPMNDiagram id="_BPMNDiagram_3">
     <bpmndi:BPMNPlane id="_BPMNPlane_3" bpmnElement="process_json_k2">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_4" bpmnElement="StartEvent_1">
-        <omgdc:Bounds x="182" y="192" width="36" height="36"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="157" y="235" width="88" height="14"/>
-        </bpmndi:BPMNLabel>
+          <omgdc:Bounds x="182" y="192" width="36" height="36"/>
+          <bpmndi:BPMNLabel>
+              <omgdc:Bounds x="157" y="235" width="88" height="14"/>
+          </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_ExclusiveGateway_2" bpmnElement="ExclusiveGateway_1" isMarkerVisible="true">
-        <omgdc:Bounds x="800" y="185" width="50" height="50"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="856" y="196" width="87" height="27"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5"
-                       sourceElement="_BPMNShape_ExclusiveGateway_2" targetElement="Activity_1g6a5xl_di">
-        <omgdi:waypoint x="825" y="235"/>
-        <omgdi:waypoint x="825" y="289"/>
-        <omgdi:waypoint x="902" y="289"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="829" y="243" width="22" height="14"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_3" bpmnElement="EndSuccess-10">
-        <omgdc:Bounds x="1092" y="113" width="36" height="36"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="1073" y="156" width="77" height="14"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_4" bpmnElement="EndError-20">
-        <omgdc:Bounds x="1092" y="271" width="36" height="36"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="1080" y="314" width="60" height="14"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7" sourceElement="Activity_1g6a5xl_di"
-                       targetElement="_BPMNShape_EndEvent_4">
-        <omgdi:waypoint x="1002" y="289"/>
-        <omgdi:waypoint x="1092" y="289"/>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6">
-        <omgdi:waypoint x="1010" y="130"/>
-        <omgdi:waypoint x="1051" y="130"/>
-        <omgdi:waypoint x="1051" y="131"/>
-        <omgdi:waypoint x="1092" y="131"/>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4">
-        <omgdi:waypoint x="825" y="185"/>
-        <omgdi:waypoint x="825" y="130"/>
-        <omgdi:waypoint x="910" y="130"/>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="829" y="155" width="22" height="14"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
+        <bpmndi:BPMNShape id="_BPMNShape_ExclusiveGateway_2" bpmnElement="ExclusiveGateway_1" isMarkerVisible="true">
+            <omgdc:Bounds x="800" y="185" width="50" height="50"/>
+            <bpmndi:BPMNLabel>
+                <omgdc:Bounds x="856" y="196" width="87" height="27"/>
+            </bpmndi:BPMNLabel>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5"
+                         sourceElement="_BPMNShape_ExclusiveGateway_2" targetElement="Activity_1g6a5xl_di">
+            <omgdi:waypoint x="825" y="235"/>
+            <omgdi:waypoint x="825" y="289"/>
+            <omgdi:waypoint x="902" y="289"/>
+            <bpmndi:BPMNLabel>
+                <omgdc:Bounds x="829" y="243" width="22" height="14"/>
+            </bpmndi:BPMNLabel>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNShape id="_BPMNShape_EndEvent_3" bpmnElement="EndSuccess-10">
+            <omgdc:Bounds x="1092" y="113" width="36" height="36"/>
+            <bpmndi:BPMNLabel>
+                <omgdc:Bounds x="1073" y="156" width="77" height="14"/>
+            </bpmndi:BPMNLabel>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="_BPMNShape_EndEvent_4" bpmnElement="EndError-20">
+            <omgdc:Bounds x="1092" y="271" width="36" height="36"/>
+            <bpmndi:BPMNLabel>
+                <omgdc:Bounds x="1080" y="314" width="60" height="14"/>
+            </bpmndi:BPMNLabel>
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7" sourceElement="Activity_1g6a5xl_di"
+                         targetElement="_BPMNShape_EndEvent_4">
+            <omgdi:waypoint x="1002" y="289"/>
+            <omgdi:waypoint x="1092" y="289"/>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6">
+            <omgdi:waypoint x="1010" y="130"/>
+            <omgdi:waypoint x="1051" y="130"/>
+            <omgdi:waypoint x="1051" y="131"/>
+            <omgdi:waypoint x="1092" y="131"/>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4">
+            <omgdi:waypoint x="825" y="185"/>
+            <omgdi:waypoint x="825" y="130"/>
+            <omgdi:waypoint x="910" y="130"/>
+            <bpmndi:BPMNLabel>
+                <omgdc:Bounds x="829" y="155" width="22" height="14"/>
+            </bpmndi:BPMNLabel>
+        </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Activity_1g6a5xl_di" bpmnElement="TK3-ShowError">
-        <omgdc:Bounds x="902" y="249" width="100" height="80"/>
+          <omgdc:Bounds x="902" y="249" width="100" height="80"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0v6m5uv_di" bpmnElement="TK2-ShowOK21">
-        <omgdc:Bounds x="910" y="90" width="100" height="80"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_03wgf9t_di" bpmnElement="Activity_User01">
-        <omgdc:Bounds x="570" y="170" width="100" height="80"/>
+          <omgdc:Bounds x="910" y="90" width="100" height="80"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_10jso7v_di" bpmnElement="WaitUserJspKostyaID-001">
-        <omgdc:Bounds x="330" y="170" width="100" height="80"/>
+          <omgdc:Bounds x="330" y="170" width="100" height="80"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_12badi4_di" bpmnElement="Flow_12badi4">
-        <omgdi:waypoint x="218" y="210"/>
-        <omgdi:waypoint x="330" y="210"/>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_18sdyj5_di" bpmnElement="Flow_18sdyj5">
-        <omgdi:waypoint x="430" y="210"/>
-        <omgdi:waypoint x="570" y="210"/>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0say2o8_di" bpmnElement="Flow_0say2o8">
-        <omgdi:waypoint x="670" y="210"/>
-        <omgdi:waypoint x="800" y="210"/>
-      </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_12badi4_di" bpmnElement="Flow_12badi4">
+            <omgdi:waypoint x="218" y="210"/>
+            <omgdi:waypoint x="330" y="210"/>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_18sdyj5_di" bpmnElement="Flow_18sdyj5">
+            <omgdi:waypoint x="430" y="210"/>
+            <omgdi:waypoint x="570" y="210"/>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0say2o8_di" bpmnElement="Flow_0say2o8">
+            <omgdi:waypoint x="670" y="210"/>
+            <omgdi:waypoint x="800" y="210"/>
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNShape id="Activity_0yem4ab_di" bpmnElement="Activity_User01">
+            <omgdc:Bounds x="570" y="170" width="100" height="80"/>
+        </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </definitions>

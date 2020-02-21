@@ -27,24 +27,20 @@ public class askBpmPageRest {
     public ModelAndView formPost(@ModelAttribute("kostyaBpmData") KostyaBpmData form,
                                  BindingResult result) throws InterruptedException {
         log.info("[Kostya-RestController] kostyaBpmData = " + form);
-        statusData.getKostyaBpmDataFromUser().setName(form.getName());
-        statusData.getKostyaBpmDataFromUser().setName(form.getKostyaAge());
-        //statusData.doUserUnlock();
-        //statusData.doEngineWait();
-
-//        runtimeService.createMessageCorrelation("process_json_k2")
-//                .processInstanceBusinessKey("Message-K-ID1")
-//                .setVariable("messageVar_KostyaAge", form.getKostyaAge())
-//                .correlate();
 
 
         camunda.getRuntimeService().createMessageCorrelation("MessageNameKostyaAge01")
+                .setVariable("messageVar_KostyaAge", form.getKostyaAge())
+                .setVariable("messageVar_NameUser", form.getName())
                 .correlate();
 
         statusData.doEngineWait();
 
         ModelAndView mv = new ModelAndView();
+
+        Thread.sleep(5000);
         mv.addObject("kostyaStatus", statusData.getBpmStatusResult());
+        //mv.addObject("kostyaStatus", ");
         mv.setViewName("response_page");
         return mv;
     }
@@ -53,7 +49,6 @@ public class askBpmPageRest {
     public ModelAndView formGet() throws InterruptedException {
         ModelAndView mv = new ModelAndView();
         KostyaBpmData model = new KostyaBpmData();
-        statusData.setKostyaBpmDataFromUser(model);
         mv.addObject("kostyaBpmData", model);
         mv.setViewName("form_page");
         return mv;

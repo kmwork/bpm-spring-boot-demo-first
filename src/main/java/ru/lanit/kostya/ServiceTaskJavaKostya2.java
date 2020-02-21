@@ -41,9 +41,10 @@ public class ServiceTaskJavaKostya2 implements JavaDelegate {
 
         //jsonCustomer.prop("name", "kkk");
         //jsonCustomer.prop("kostyaAgeBPM", 390);
+        //Thread.sleep(5000);
 
-        jsonCustomer.prop("name", statusData.getKostyaBpmDataFromUser().getName());
-        jsonCustomer.prop("kostyaAgeBPM", Integer.valueOf(statusData.getKostyaBpmDataFromUser().getKostyaAge()));
+        jsonCustomer.prop("kostyaAgeBPM", Integer.valueOf(execution.getVariable("messageVar_KostyaAge").toString()));
+        jsonCustomer.prop("name", execution.getVariable("messageVar_NameUser").toString());
 
         LOG.info("JSON customer: {}", jsonCustomer);
         execution.setVariable("customer", jsonCustomer);
