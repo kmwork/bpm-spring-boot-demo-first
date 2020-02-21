@@ -26,3 +26,6 @@ public class SessionBpmStatusDataQuery {
 класс в пути
 https://github.com/kmwork/bpm-spring-boot-demo-first/blob/kostya-demo/src/main/java/ru/lanit/kostya/dao/SessionBpmStatusDataQuery.java
 
+
+
+ГЛАВНАЯ проблема!!!! -- нет синхронизации по блокирующей очереди
