@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
  * Главные константы приложения
  */
 public interface AppConst {
-    public static final String LOG_PREFIX_APP = "[Latin-BPM-APP: Kostya-Demo-V1] ";
+    public static final String LOG_PREFIX_APP = "[Latin-BPM-APP: Demo-V1] ";
     //профили спринга
     public static final String TESTING_DB_H2_PROFILE = "testing_db_h2";
     public static final String PRODUCTION_PROFILE = "production";

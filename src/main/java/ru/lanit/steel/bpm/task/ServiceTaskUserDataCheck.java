@@ -22,6 +22,9 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.spin.json.SpinJsonNode;
 import ru.lanit.steel.bpm.config.BpmConst;
+import ru.lanit.steel.utils.AppException;
+import ru.lanit.steel.utils.TypeException;
+import ru.lanit.steel.utils.ValueParser;
 
 import static org.camunda.spin.Spin.JSON;
 
@@ -32,13 +35,33 @@ public class ServiceTaskUserDataCheck implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         log.info(BpmConst.PREFIX_TASK_LOG + "run ServiceTaskUserDataCheck: {}", execution);
-        SpinJsonNode jsonData = JSON("{ \"steelModelName\": -1, \"steelPercentValueBPM\": -1}");
+        SpinJsonNode jsonData = JSON(String.format("{ \"%s\" : -1, \"%s\" : -1, \"%s\" : -1, \"%s\" : -1}", BpmConst.JSON_STEEL_VALUE_PARAM, BpmConst.JSON_STEEL_MODEL_PARAM, BpmConst.JSON_ERROR_CODE_PARAM, BpmConst.JSON_ERROR_DESC_PARAM));
 
-        jsonData.prop("steelPercentValueBPM", Integer.valueOf(execution.getVariable(BpmConst.MESSAGE_PARAM_SteelPercentValue).toString()));
-        jsonData.prop("name", execution.getVariable(BpmConst.MESSAGE_PARAM_SteelModelName).toString());
+        try {
 
-        log.info("JSON customer: {}", jsonData);
-        execution.setVariable("steel", jsonData);
+            //проверка на марку стали
+            String strSteelPercentValue = (String) execution.getVariable(BpmConst.MESSAGE_PARAM_SteelPercentValue);
+            ValueParser.checkValidValue(strSteelPercentValue, BpmConst.MESSAGE_PARAM_SteelModelName_FOR_USER, BpmConst.VALID_STEEL_SET);
+
+            //проверка ввода процестов стали
+            int intSteelPercentValue = ValueParser.parseInt(strSteelPercentValue, BpmConst.MESSAGE_PARAM_SteelPercentValue_FOR_USER);
+            jsonData.prop(BpmConst.JSON_STEEL_VALUE_PARAM, intSteelPercentValue);
+            jsonData.prop(BpmConst.JSON_STEEL_MODEL_PARAM, strSteelPercentValue);
+            jsonData.prop(BpmConst.JSON_ERROR_CODE_PARAM, BpmConst.JSON_ERROR_CODE_SUCCESS_VALUE);
+
+
+            //формирование json в BPM модель
+            log.info("JSON for BPM: {}", jsonData);
+            execution.setVariable("steel", jsonData);
+        } catch (Exception ex) {
+            AppException appEx = ex instanceof AppException ? (AppException) ex : new AppException(TypeException.SYSTEM_ERROR, "Ошибка в ServiceTaskUserDataCheck", null, ex);
+            jsonData.prop(BpmConst.JSON_ERROR_DESC_PARAM, appEx.getMsg());
+            jsonData.prop(BpmConst.JSON_ERROR_CODE_PARAM, appEx.getType().toString());
+
+            jsonData.prop(BpmConst.JSON_STEEL_VALUE_PARAM, BpmConst.JSON_BPM_ERROR_VALUE);
+            jsonData.prop(BpmConst.JSON_STEEL_MODEL_PARAM, BpmConst.JSON_BPM_ERROR_VALUE);
+
+        }
 
 
     }
