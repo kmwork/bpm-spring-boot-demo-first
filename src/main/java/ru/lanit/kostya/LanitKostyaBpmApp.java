@@ -42,7 +42,6 @@ import org.springframework.util.Assert;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import ru.lanit.kostya.beans.Showcase;
 import ru.lanit.kostya.config.AppConst;
-import ru.lanit.kostya.dao.SessionBpmStatusDataQuery;
 
 @SpringBootApplication
 @EnableScheduling
@@ -53,9 +52,11 @@ public class LanitKostyaBpmApp implements CommandLineRunner {
     boolean processApplicationStopped;
 
     public static void main(final String... args) throws Exception {
-        SessionBpmStatusDataQuery.getInstance();
+
         System.setProperty("spring.profiles.active", AppConst.TESTING_DB_H2_PROFILE);
         System.setProperty("java.awt.headless", "false");
+        System.setProperty("java.awt.headless", "false");
+        System.setProperty("file.encoding", "UTF8");
         SpringApplication.run(LanitKostyaBpmApp.class, args);
     }
 

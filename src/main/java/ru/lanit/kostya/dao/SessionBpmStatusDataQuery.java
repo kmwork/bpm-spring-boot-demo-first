@@ -1,45 +1,38 @@
 package ru.lanit.kostya.dao;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
 
-
+@Slf4j
 public class SessionBpmStatusDataQuery {
 
     private final static long ID_OBJECT = System.nanoTime();
     private static final String PREFIX_LOG = "[Kostya:LOCKER] ";
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public static SessionBpmStatusDataQuery getInstance() {
-        return instance;
-    }
-
+    @Getter
     private static final SessionBpmStatusDataQuery instance = new SessionBpmStatusDataQuery();
 
     private SessionBpmStatusDataQuery() {
-        logger.info("KOSTYA-ENTER");
+        log.info("[KOSTYA]-SessionBpmStatusDataQuery: init");
     }
 
 
-    public LinkedBlockingDeque<BpmStatusForJSP> getBlockingDeque() {
-        return blockingDeque;
-    }
-
+    @Getter
     private final LinkedBlockingDeque<BpmStatusForJSP> blockingDeque = new LinkedBlockingDeque(10);
 
     public void addMessage(BpmStatusForJSP val) {
-        logger.info(PREFIX_LOG + "[++++]: add message to user: val to ID_OBJECT = " + ID_OBJECT);
+        log.info(PREFIX_LOG + "[++++]: add message to user: val to ID_OBJECT = " + ID_OBJECT);
         blockingDeque.push(val);
     }
 
     public BpmStatusForJSP readMessage() throws InterruptedException {
-        logger.info(PREFIX_LOG + "[----]: stating for read message from ID_OBJECT  = " + ID_OBJECT);
+        log.info(PREFIX_LOG + "[----]: stating for read message from ID_OBJECT  = " + ID_OBJECT);
         BpmStatusForJSP val = blockingDeque.pollFirst(5, TimeUnit.MINUTES);
-        logger.info(PREFIX_LOG + "[----]: success for read message: " + val);
+        log.info(PREFIX_LOG + "[----]: success for read message: " + val);
         return val;
     }
 }
