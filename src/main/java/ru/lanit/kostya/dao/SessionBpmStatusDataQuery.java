@@ -20,6 +20,10 @@ public class SessionBpmStatusDataQuery {
 
     private static final SessionBpmStatusDataQuery instance = new SessionBpmStatusDataQuery();
 
+    private SessionBpmStatusDataQuery() {
+        logger.info("KOSTYA-ENTER");
+    }
+
 
     public LinkedBlockingDeque<BpmStatusForJSP> getBlockingDeque() {
         return blockingDeque;

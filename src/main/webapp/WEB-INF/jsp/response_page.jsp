@@ -16,7 +16,7 @@
 
     <h1> Finish</h1>
     <p> Kostya-Status: "${timeID}"</p>
-    <p> is error: "${isError}"</p>
+    <p> is error: "${error}"</p>
     <p> Kostya-Status: "${kostyaStatus}"</p>
 
 

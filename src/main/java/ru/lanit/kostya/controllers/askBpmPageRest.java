@@ -39,7 +39,7 @@ public class askBpmPageRest {
 
         mv.addObject("kostyaStatus", mes.getDesc());
         mv.addObject("timeID", mes.getMessageId());
-        mv.addObject("isError:", Boolean.toString(mes.isError()));
+        mv.addObject("error", Boolean.toString(mes.isError()));
 
         mv.setViewName("response_page");
         return mv;

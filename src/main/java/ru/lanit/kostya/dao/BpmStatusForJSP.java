@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class BpmStatusForJSP {
     @Getter
-    private final String messageId = "TimeID" + System.currentTimeMillis();
+    private final String messageId = "TimeID" + System.nanoTime();
 
     @Getter
     @Setter
