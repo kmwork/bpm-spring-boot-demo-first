@@ -14,9 +14,9 @@
 
 <div class="lc-block">
 
-    <h1> Finish</h1>
-    <p> Kostya-Status: "${timeID}"</p>
-    <p> is error: "${error}"</p>
+    <h1>**** Finish ****</h1>
+    <p> Message ID: "${timeID}"</p>
+    <p> Is error: "${error}"</p>
     <p> Kostya-Status: "${kostyaStatus}"</p>
 
 
