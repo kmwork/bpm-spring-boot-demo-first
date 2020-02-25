@@ -14,25 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.lanit.kostya;
+package ru.lanit.steel.bpm.task;
 
+import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ru.lanit.kostya.dao.BpmStatusForJSP;
-import ru.lanit.kostya.dao.SessionBpmStatusDataQuery;
+import ru.lanit.steel.bpm.config.BpmConst;
+import ru.lanit.steel.dao.BpmStatusForJSP;
+import ru.lanit.steel.dao.SessionBpmStatusDataQuery;
 
-public class ServiceTaskJavaKostyaShowOk21 implements JavaDelegate {
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+@Slf4j
+public class ServiceTaskRunForSuccess implements JavaDelegate {
 
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        logger.info("[Show-OK]. I am sleep start: {}", execution);
+        log.info(BpmConst.PREFIX_TASK_LOG + " run ServiceTaskRunForSuccess: {}", execution);
         SessionBpmStatusDataQuery query = SessionBpmStatusDataQuery.getInstance();
-        BpmStatusForJSP userMessage = new BpmStatusForJSP(false, "welcome to lanit. succes. kostya is big");
+        BpmStatusForJSP userMessage = new BpmStatusForJSP(false, BpmConst.MESSAGE_TASK_STEEL_OK);
         query.addMessage(userMessage);
 
     }

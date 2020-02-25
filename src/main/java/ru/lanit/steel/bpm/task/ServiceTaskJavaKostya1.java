@@ -14,14 +14,14 @@
 // * See the License for the specific language governing permissions and
 // * limitations under the License.
 // */
-//package ru.lanit.kostya;
+//package ru.lanit.steel;
 //
 //
 //import org.camunda.bpm.engine.delegate.DelegateExecution;
 //import org.camunda.bpm.engine.delegate.JavaDelegate;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
-//import ru.lanit.kostya.dao.SessionBpmStatusData;
+//import ru.lanit.steel.dao.SessionBpmStatusData;
 //
 //import java.awt.*;
 //import java.net.URI;

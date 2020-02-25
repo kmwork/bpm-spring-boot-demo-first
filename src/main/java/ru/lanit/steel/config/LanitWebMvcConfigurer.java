@@ -1,4 +1,4 @@
-package ru.lanit.kostya.config;
+package ru.lanit.steel.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

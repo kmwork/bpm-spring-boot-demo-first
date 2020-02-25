@@ -1,17 +1,17 @@
-package ru.lanit.kostya.dao;
+package ru.lanit.steel.dao;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @ToString
-public class KostyaBpmData {
+public class SteelBpmData {
     @Setter
     @Getter
-    private String kostyaAge;
+    private String steelPercentValue;
 
     @Setter
     @Getter
-    private String name;
+    private String steelModelName;
 
 }

@@ -8,16 +8,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hello World!</title>
+    <title>Ланит Демка для BPM Camunda - Ответ севиса</title>
 </head>
 <body class="security-app">
 
 <div class="lc-block">
 
-    <h1>**** Finish ****</h1>
-    <p> Message ID: "${timeID}"</p>
-    <p> Is error: "${error}"</p>
-    <p> Kostya-Status: "${kostyaStatus}"</p>
+    <h1>**** Финищ ****</h1>
+    <p> ID сообщенения: "${timeID}"</p>
+    <p> Признак ошибки: "${error}"</p>
+    <p> Статус исполнения BPM модели: "${steelStatus}"</p>
 
 
 </div>

@@ -1,4 +1,4 @@
-package ru.lanit.kostya.dao;
+package ru.lanit.steel.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

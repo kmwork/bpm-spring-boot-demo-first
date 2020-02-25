@@ -181,7 +181,7 @@
                             <goal>repackage</goal>
                         </goals>
                         <configuration>
-                            <mainClass>ru.lanit.kostya.LanitKostyaBpmApp</mainClass>
+                            <mainClass>ru.lanit.steel.LanitKostyaBpmApp</mainClass>
                         </configuration>
                     </execution>
                 </executions>

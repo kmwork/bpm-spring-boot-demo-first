@@ -1,4 +1,4 @@
-package ru.lanit.kostya.controllers;
+package ru.lanit.steel.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.ProcessEngine;
@@ -9,35 +9,34 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import ru.lanit.kostya.dao.BpmStatusForJSP;
-import ru.lanit.kostya.dao.KostyaBpmData;
-import ru.lanit.kostya.dao.SessionBpmStatusDataQuery;
+import ru.lanit.steel.bpm.config.BpmConst;
+import ru.lanit.steel.dao.BpmStatusForJSP;
+import ru.lanit.steel.dao.SessionBpmStatusDataQuery;
 
 @Controller
 @Slf4j
-@RequestMapping("/k2")
+@RequestMapping("/lanit-bpm-app")
 public class askBpmPageRest {
-
 
 
     @Autowired
     private ProcessEngine camunda;
 
     @RequestMapping(value = "/askBpmPagePost", method = RequestMethod.POST)
-    public ModelAndView formPost(@ModelAttribute("kostyaBpmData") KostyaBpmData form,
+    public ModelAndView formPost(@ModelAttribute("steelBpmData") ru.lanit.steel.dao.SteelBpmData form,
                                  BindingResult result) throws InterruptedException {
-        log.info("[Kostya-RestController] kostyaBpmData = " + form);
+        log.info("[Kostya-RestController] steelBpmData = " + form);
 
 
-        camunda.getRuntimeService().createMessageCorrelation("MessageNameKostyaAge01")
-                .setVariable("messageVar_KostyaAge", form.getKostyaAge())
-                .setVariable("messageVar_NameUser", form.getName())
+        camunda.getRuntimeService().createMessageCorrelation("MessageNameSteelPercentValue01")
+                .setVariable(BpmConst.MESSAGE_PARAM_SteelPercentValue, form.getSteelPercentValue())
+                .setVariable(BpmConst.MESSAGE_PARAM_SteelModelName, form.getSteelModelName())
                 .correlate();
         SessionBpmStatusDataQuery query = SessionBpmStatusDataQuery.getInstance();
         BpmStatusForJSP mes = query.readMessage();
         ModelAndView mv = new ModelAndView();
 
-        mv.addObject("kostyaStatus", mes.getDesc());
+        mv.addObject("bpmStatus", mes.getDesc());
         mv.addObject("timeID", mes.getMessageId());
         mv.addObject("error", Boolean.toString(mes.isError()));
 
@@ -48,8 +47,8 @@ public class askBpmPageRest {
     @RequestMapping(value = "/askBpmPageGet", method = RequestMethod.GET)
     public ModelAndView formGet() throws InterruptedException {
         ModelAndView mv = new ModelAndView();
-        KostyaBpmData model = new KostyaBpmData();
-        mv.addObject("kostyaBpmData", model);
+        ru.lanit.steel.dao.SteelBpmData model = new ru.lanit.steel.dao.SteelBpmData();
+        mv.addObject("steelBpmData", model);
         mv.setViewName("form_page");
         return mv;
     }

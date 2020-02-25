@@ -1,4 +1,4 @@
-package ru.lanit.kostya.config;
+package ru.lanit.steel.config;
 
 import lombok.Getter;
 import lombok.Setter;

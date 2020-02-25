@@ -14,28 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.lanit.kostya;
+package ru.lanit.steel.bpm.task;
 
+import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ru.lanit.kostya.dao.BpmStatusForJSP;
-import ru.lanit.kostya.dao.SessionBpmStatusDataQuery;
+import ru.lanit.steel.bpm.config.BpmConst;
+import ru.lanit.steel.dao.BpmStatusForJSP;
+import ru.lanit.steel.dao.SessionBpmStatusDataQuery;
+
+@Slf4j
+public class ServiceTaskShowError implements JavaDelegate {
 
 
-public class ServiceTaskJavaKostyaShowError implements JavaDelegate {
+    @Override
+    public void execute(DelegateExecution execution) throws Exception {
+        log.info(BpmConst.PREFIX_TASK_LOG + " run ServiceTaskShowError: {}", execution);
+        SessionBpmStatusDataQuery query = SessionBpmStatusDataQuery.getInstance();
+        BpmStatusForJSP userMessage = new BpmStatusForJSP(true, BpmConst.MESSAGE_TASK_STEEL_ERROR);
+        query.addMessage(userMessage);
 
-  private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-
-  @Override
-  public void execute(DelegateExecution execution) throws Exception {
-      logger.info("[Show-Error]. I am sleep start: {}", execution);
-      SessionBpmStatusDataQuery query = SessionBpmStatusDataQuery.getInstance();
-      BpmStatusForJSP userMessage = new BpmStatusForJSP(true, "sorry - kostya small");
-      query.addMessage(userMessage);
-
-  }
+    }
 
 }

@@ -1,4 +1,4 @@
-package ru.lanit.kostya.config;
+package ru.lanit.steel.config;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -8,34 +8,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Hello World!</title>
+	<title>Ланит Демо-приложение для BPM Camunda - Запрос ввода данных для сервиса</title>
 </head>
 <body class="security-app">
-
 <div class="lc-block">
-
-
-	<%--@elvariable id="kostyaBpmData" type="ru.lanit.kostya.dao.KostyaBpmData"--%>
+	<%--@elvariable id="steelBpmData" type="ru.lanit.steel.dao.SteelBpmData"--%>
 	<form:form method="post" action="/k2/askBpmPagePost"
-			   modelAttribute="kostyaBpmData">
-		<h3>introduce text here</h3>
-		<table>
-			<tr>
-				<td>name:</td>
-				<td><form:input type="text" path="name"/></td>
-			</tr>
-			<tr>
-				<td>kostya-age:</td>
-				<td><form:input type="text" path="kostyaAge"/></td>
-			</tr>
-		</table>
-		<p>
-			<input type="submit" value="Start"/>
-		</p>
-	</form:form>
-
-
-</div>
-
-</body>
-</html>
+			   modelAttribute="steelBpmData">
+	<h3>Плиз, введите данные марку стали для расчета мат. модели</h3>
+	<table>
+		<tr>
+			<td>Код марки стали:</td>
+			<td><form:input type="text" path="steelModelName"/></td>
+		</tr>
+		<tr>
+			<td>Значение в процентах:</td>
+			<td><form:input type="text" path="steelPercentValue"/></td>
+		</tr>

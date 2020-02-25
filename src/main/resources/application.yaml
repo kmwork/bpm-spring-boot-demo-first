@@ -2,7 +2,7 @@ lanit:
   global:
     appVersion: DEMO-K1
     debug: true
-    testKostyaAge: 30
+    testSteelPercentValue: 30
     log:
       level: DEBUG
 spring:

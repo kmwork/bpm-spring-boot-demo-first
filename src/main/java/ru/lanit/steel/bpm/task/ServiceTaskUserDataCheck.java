@@ -14,32 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.lanit.kostya;
+package ru.lanit.steel.bpm.task;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.spin.json.SpinJsonNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ru.lanit.steel.bpm.config.BpmConst;
 
 import static org.camunda.spin.Spin.JSON;
 
-public class ServiceTaskJavaKostya2 implements JavaDelegate {
-
-    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
+@Slf4j
+public class ServiceTaskUserDataCheck implements JavaDelegate {
 
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
+        log.info(BpmConst.PREFIX_TASK_LOG + "run ServiceTaskUserDataCheck: {}", execution);
+        SpinJsonNode jsonData = JSON("{ \"steelModelName\": -1, \"steelPercentValueBPM\": -1}");
 
-        SpinJsonNode jsonCustomer = JSON("{ \"name\": -1, \"kostyaAgeBPM\": -1}");
+        jsonData.prop("steelPercentValueBPM", Integer.valueOf(execution.getVariable(BpmConst.MESSAGE_PARAM_SteelPercentValue).toString()));
+        jsonData.prop("name", execution.getVariable(BpmConst.MESSAGE_PARAM_SteelModelName).toString());
 
-        jsonCustomer.prop("kostyaAgeBPM", Integer.valueOf(execution.getVariable("messageVar_KostyaAge").toString()));
-        jsonCustomer.prop("name", execution.getVariable("messageVar_NameUser").toString());
-
-        LOG.info("JSON customer: {}", jsonCustomer);
-        execution.setVariable("customer", jsonCustomer);
+        log.info("JSON customer: {}", jsonData);
+        execution.setVariable("steel", jsonData);
 
 
     }
