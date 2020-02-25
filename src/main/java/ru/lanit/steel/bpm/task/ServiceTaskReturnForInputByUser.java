@@ -20,6 +20,7 @@ package ru.lanit.steel.bpm.task;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.camunda.spin.json.SpinJsonNode;
 import ru.lanit.steel.bpm.config.BpmConst;
 import ru.lanit.steel.dao.BpmStatusForJSP;
 import ru.lanit.steel.dao.SessionBpmStatusDataQuery;
@@ -33,7 +34,9 @@ public class ServiceTaskReturnForInputByUser implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         log.info(BpmConst.PREFIX_TASK_LOG + " run ServiceTaskReturnForInputByUser: {}", execution);
         SessionBpmStatusDataQuery query = SessionBpmStatusDataQuery.getInstance();
-        BpmStatusForJSP userMessage = new BpmStatusForJSP(TypeException.INVALID_USER_INPUT_DATA, BpmConst.MESSAGE_TASK_STEEL_INVALID_DATA_ERROR);
+        SpinJsonNode jsonData = (SpinJsonNode) execution.getVariable(BpmConst.JSON_ROOT_NAME);
+        String techError = jsonData.prop(BpmConst.JSON_ERROR_DESC_PARAM).stringValue();
+        BpmStatusForJSP userMessage = new BpmStatusForJSP(TypeException.INVALID_USER_INPUT_DATA, BpmConst.MESSAGE_TASK_STEEL_INVALID_DATA_ERROR, techError);
         query.addMessage(userMessage);
     }
 

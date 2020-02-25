@@ -14,9 +14,10 @@
     <h1>**** Финищ ****</h1>
     <p> ID сообщенения: "${timeID}"</p>
     <p> Код ошибки: "${codeError}" (если 0, тогда все ок)</p>
-    <p> Признак ошибки: "${errorDesc}"</p>
+    <p> Описание ошибки: "${errorDesc}"</p>
+    <p> Техническое описание ошибки: "${errorTechnicalDesc}"</p>
     <p> Статус исполнения BPM модели: "${bpmStatus}"</p>
-    <a href="/lanit-bpm-app/askBpmPagePost">В случае ошибки повторите ввод данных</a>
+    <a href="/lanit-bpm-app/askBpmPageGet">В случае ошибки повторите ввод данных</a>
 </div>
 </body>
 </html>

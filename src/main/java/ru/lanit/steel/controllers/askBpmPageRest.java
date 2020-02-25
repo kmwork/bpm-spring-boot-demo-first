@@ -41,7 +41,7 @@ public class askBpmPageRest {
         mv.addObject("timeID", mes.getMessageId());
         mv.addObject("codeError", mes.getTypeException().getCodeError());
         mv.addObject("errorDesc", mes.getTypeException().getDescError());
-
+        mv.addObject("errorTechnicalDesc", mes.getErrorTechnicalDesc());
         mv.setViewName("response_page");
         return mv;
     }

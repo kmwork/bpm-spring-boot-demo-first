@@ -32,7 +32,7 @@ public class ServiceTaskRunForSuccess implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         log.info(BpmConst.PREFIX_TASK_LOG + " run ServiceTaskRunForSuccess: {}", execution);
         SessionBpmStatusDataQuery query = SessionBpmStatusDataQuery.getInstance();
-        BpmStatusForJSP userMessage = new BpmStatusForJSP(TypeException.OK, BpmConst.MESSAGE_TASK_STEEL_OK);
+        BpmStatusForJSP userMessage = new BpmStatusForJSP(TypeException.OK, BpmConst.MESSAGE_TASK_STEEL_OK, TypeException.OK.getDescError());
         query.addMessage(userMessage);
 
     }

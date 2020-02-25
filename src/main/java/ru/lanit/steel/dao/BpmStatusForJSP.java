@@ -18,4 +18,9 @@ public class BpmStatusForJSP {
     @Getter
     @Setter
     private String descForUser;
+
+
+    @Getter
+    @Setter
+    private String errorTechnicalDesc;
 }
