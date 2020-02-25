@@ -15,13 +15,24 @@
 	<%--@elvariable id="steelBpmData" type="ru.lanit.steel.dao.SteelBpmData"--%>
 	<form:form method="post" action="/k2/askBpmPagePost"
 			   modelAttribute="steelBpmData">
-	<h3>Плиз, введите данные марку стали для расчета мат. модели</h3>
-	<table>
-		<tr>
-			<td>Код марки стали:</td>
-			<td><form:input type="text" path="steelModelName"/></td>
-		</tr>
-		<tr>
-			<td>Значение в процентах:</td>
-			<td><form:input type="text" path="steelPercentValue"/></td>
-		</tr>
+		<h3>Плиз, введите данные марку стали для расчета мат. модели</h3>
+		<table>
+			<tr>
+				<td>Код марки стали:</td>
+				<td><form:input type="text" path="steelModelName"/></td>
+			</tr>
+			<tr>
+				<td>Значение в процентах:</td>
+				<td><form:input type="text" path="steelPercentValue"/></td>
+			</tr>
+		</table>
+		<p>
+			<input type="submit" value="Start"/>
+		</p>
+	</form:form>
+
+
+</div>
+
+</body>
+</html>

@@ -4,7 +4,7 @@ lanit:
     debug: true
     testSteelPercentValue: 30
     log:
-      level: DEBUG
+      level: INFO
 spring:
   application:
     name: ${lanit.global.appVersion}
@@ -36,6 +36,6 @@ logging:
       springframework:
         web: ${lanit.global.log.level}
     ru:
-      lanit: ${lanit.global.log.level}
+      lanit: DEBUG
     sun: INFO
     javax: INFO
