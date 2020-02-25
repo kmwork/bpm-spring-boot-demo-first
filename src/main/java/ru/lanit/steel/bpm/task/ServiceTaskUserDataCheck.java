@@ -49,7 +49,7 @@ public class ServiceTaskUserDataCheck implements JavaDelegate {
             //проверка ввода процестов стали
             strPercent = (String) execution.getVariable(BpmConst.MESSAGE_PARAM_SteelPercentValue);
             int intPercent = ValueParser.parseInt(strPercent, BpmConst.LABEL_SteelPercentValue_FOR_USER);
-            jsonData.prop(BpmConst.JSON_STEEL_VALUE_PARAM, Integer.toString(intPercent));
+            jsonData.prop(BpmConst.JSON_STEEL_VALUE_PARAM, intPercent);
 
             jsonData.prop(BpmConst.JSON_ERROR_CODE_PARAM, BpmConst.JSON_ERROR_CODE_SUCCESS_VALUE);
             jsonData.prop(BpmConst.JSON_ERROR_DESC_PARAM, TypeException.OK.getDescError());

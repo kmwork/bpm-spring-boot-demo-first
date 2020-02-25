@@ -1,6 +1,7 @@
 package ru.lanit.steel.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import ru.lanit.steel.bpm.config.BpmConst;
 import ru.lanit.steel.config.AppConst;
 import ru.lanit.steel.dao.BpmStatusForJSP;
 import ru.lanit.steel.dao.SessionBpmStatusDataQuery;
+import ru.lanit.steel.ui.UserConst;
 
 @Controller
 @Slf4j
@@ -29,9 +31,17 @@ public class askBpmPageRest {
         log.info("[Kostya-RestController] steelBpmData = " + form);
 
 
+        String model = form.getSteelModelName();
+        String percent = form.getSteelPercentValue();
+
+
+        model = StringUtils.isEmpty(model) ? UserConst.USER_EMPTY_VALUE : model.toUpperCase().trim();
+        percent = StringUtils.isEmpty(percent) ? UserConst.USER_EMPTY_VALUE : percent.toUpperCase().trim();
+
+
         camunda.getRuntimeService().createMessageCorrelation("MessageNameSteelPercentValue01")
-                .setVariable(BpmConst.MESSAGE_PARAM_SteelPercentValue, form.getSteelPercentValue())
-                .setVariable(BpmConst.MESSAGE_PARAM_SteelModelName, form.getSteelModelName())
+                .setVariable(BpmConst.MESSAGE_PARAM_SteelPercentValue, percent)
+                .setVariable(BpmConst.MESSAGE_PARAM_SteelModelName, model)
                 .correlate();
         SessionBpmStatusDataQuery query = SessionBpmStatusDataQuery.getInstance();
         BpmStatusForJSP mes = query.readMessage("formPost");
