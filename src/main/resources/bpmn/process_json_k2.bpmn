@@ -17,7 +17,7 @@
     <sequenceFlow id="Case-Small-Percent" name="меньше 21 процентов" sourceRef="SwitchNum-ByPersent"
                   targetRef="ServiceTaskShowError-ID">
       <conditionExpression xsi:type="tFormalExpression">
-        ${jsonLatinRoot.prop("steelPercentValueBPM").numberValue() &lt; 21 }
+        ${jsonLatinRoot.prop("jsonSteelPercentValueBPM").numberValue() &lt; 21 }
       </conditionExpression>
     </sequenceFlow>
     <endEvent id="EndSuccess-10" name="Финиш без ошибок">
@@ -31,7 +31,7 @@
     <sequenceFlow id="Case-Normal-Percent" name="не менее 21 процентов" sourceRef="SwitchNum-ByPersent"
                   targetRef="ServiceTaskRunForSuccess-ID">
       <conditionExpression xsi:type="tFormalExpression">
-        ${jsonLatinRoot.prop("steelPercentValueBPM").numberValue() &gt;= 21}
+        ${jsonLatinRoot.prop("jsonSteelPercentValueBPM").numberValue() &gt;= 21}
       </conditionExpression>
     </sequenceFlow>
     <serviceTask id="ServiceTaskShowError-ID" name="Вывод ошибки"
