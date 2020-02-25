@@ -40,7 +40,7 @@ public class ServiceTaskUserDataCheck implements JavaDelegate {
         try {
 
             //проверка на марку стали
-            String strSteelPercentValue = (String) execution.getVariable(BpmConst.MESSAGE_PARAM_SteelPercentValue);
+            String strSteelPercentValue = (String) execution.getVariable(BpmConst.MESSAGE_PARAM_SteelModelName);
             ValueParser.checkValidValue(strSteelPercentValue, BpmConst.MESSAGE_PARAM_SteelModelName_FOR_USER, BpmConst.VALID_STEEL_SET);
 
             //проверка ввода процестов стали

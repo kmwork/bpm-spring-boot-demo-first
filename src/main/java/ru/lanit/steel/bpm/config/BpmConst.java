@@ -29,9 +29,9 @@ public class BpmConst {
     public static final Set<String> VALID_STEEL_SET = new HashSet<>();
 
     static {
-        VALID_STEEL_SET.add("A1".toLowerCase());
-        VALID_STEEL_SET.add("B21".toLowerCase());
-        VALID_STEEL_SET.add("C441".toLowerCase());
+        VALID_STEEL_SET.add("R1".toUpperCase());
+        VALID_STEEL_SET.add("FWT21".toUpperCase());
+        VALID_STEEL_SET.add("YD441".toUpperCase());
     }
 
 }

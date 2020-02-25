@@ -33,7 +33,8 @@ public class ValueParser {
             throw new AppException(TypeException.INVALID_USER_INPUT_DATA, "пустое значение", args, null);
         }
 
-        if (validValues.contains(strValue.toLowerCase()))
+        String key = strValue.trim().toUpperCase();
+        if (validValues.contains(key))
             log.debug(PREFIX_LOG + ": success validation  : [" + strValue + "] in " + validValues.toString());
         else
             throw new AppException(TypeException.INVALID_USER_INPUT_DATA, "знание не попадает в разрешенные значения: " + validValues.toString(), args, null);
