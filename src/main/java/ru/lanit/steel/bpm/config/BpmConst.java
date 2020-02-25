@@ -7,8 +7,8 @@ public class BpmConst {
     public static String MESSAGE_PARAM_SteelPercentValue = "latin_SteelPercentValue";
     public static String MESSAGE_PARAM_SteelModelName = "latin_SteelModelName";
 
-    public static String MESSAGE_PARAM_SteelPercentValue_FOR_USER = "Процент марки стали";
-    public static String MESSAGE_PARAM_SteelModelName_FOR_USER = "Наименование марки стали";
+    public static String LABEL_SteelPercentValue_FOR_USER = "Процент марки стали";
+    public static String LABEL_SteelModelName_FOR_USER = "Наименование марки стали";
 
     public static final String PREFIX_TASK_LOG = "[Lanit:TASK] ";
     public static final String MESSAGE_TASK_STEEL_ERROR = "Сорри, но сталь будет не достаточно прочной";

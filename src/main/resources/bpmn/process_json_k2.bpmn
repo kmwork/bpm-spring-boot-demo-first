@@ -66,13 +66,13 @@
     <sequenceFlow id="Flow_NoUserError" name="Нет ошибок" sourceRef="Case-On-Error-Switch-1"
                   targetRef="SwitchNum-ByPersent">
       <conditionExpression xsi:type="tFormalExpression">
-        ${ jsonLatinRoot.prop("jsonErrorCodeBPM") == "BPM:Value:Success" }
+        ${ jsonLatinRoot.prop("jsonErrorCodeBPM").stringValue().equalsIgnoreCase("BPM:Value:Success") }
       </conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="Flow_ByErrorOfSteelModel" name="Не верная марка стали&#10;&#10;"
                   sourceRef="Case-On-Error-Switch-1" targetRef="ServiceTaskReturnForInputByUser-ID">
       <conditionExpression xsi:type="tFormalExpression">
-        ${ jsonLatinRoot.prop("jsonErrorCodeBPM") !="BPM:Value:Success" }
+        ${ !jsonLatinRoot.prop("jsonErrorCodeBPM").stringValue().equalsIgnoreCase("BPM:Value:Success") }
       </conditionExpression>
     </sequenceFlow>
     <serviceTask id="ServiceTaskReturnForInputByUser-ID" name="Перезапук формы ввода данных пользователя"

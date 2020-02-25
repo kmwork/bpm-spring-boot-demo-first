@@ -34,7 +34,7 @@ public class askBpmPageRest {
                 .setVariable(BpmConst.MESSAGE_PARAM_SteelModelName, form.getSteelModelName())
                 .correlate();
         SessionBpmStatusDataQuery query = SessionBpmStatusDataQuery.getInstance();
-        BpmStatusForJSP mes = query.readMessage();
+        BpmStatusForJSP mes = query.readMessage("formPost");
         ModelAndView mv = new ModelAndView();
 
         mv.addObject("bpmStatus", mes.getDescForUser());

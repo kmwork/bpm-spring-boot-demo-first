@@ -33,7 +33,7 @@ public class ServiceTaskRunForSuccess implements JavaDelegate {
         log.info(BpmConst.PREFIX_TASK_LOG + " run ServiceTaskRunForSuccess: {}", execution);
         SessionBpmStatusDataQuery query = SessionBpmStatusDataQuery.getInstance();
         BpmStatusForJSP userMessage = new BpmStatusForJSP(TypeException.OK, BpmConst.MESSAGE_TASK_STEEL_OK, TypeException.OK.getDescError());
-        query.addMessage(userMessage);
+        query.addMessage("ServiceTaskRunForSuccess", userMessage);
 
     }
 

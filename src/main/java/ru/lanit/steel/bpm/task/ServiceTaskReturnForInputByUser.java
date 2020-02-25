@@ -37,7 +37,7 @@ public class ServiceTaskReturnForInputByUser implements JavaDelegate {
         SpinJsonNode jsonData = (SpinJsonNode) execution.getVariable(BpmConst.JSON_ROOT_NAME);
         String techError = jsonData.prop(BpmConst.JSON_ERROR_DESC_PARAM).stringValue();
         BpmStatusForJSP userMessage = new BpmStatusForJSP(TypeException.INVALID_USER_INPUT_DATA, BpmConst.MESSAGE_TASK_STEEL_INVALID_DATA_ERROR, techError);
-        query.addMessage(userMessage);
+        query.addMessage("ServiceTaskReturnForInputByUser", userMessage);
     }
 
 }

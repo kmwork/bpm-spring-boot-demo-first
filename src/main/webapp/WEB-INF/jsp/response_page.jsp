@@ -11,7 +11,7 @@
 </head>
 <body class="security-app">
 <div class="lc-block">
-    <h1>**** Финищ ****</h1>
+    <h1>**** Финиш ****</h1>
     <p> ID сообщенения: "${timeID}"</p>
     <p> Код ошибки: "${codeError}" (если 0, тогда все ок)</p>
     <p> Описание ошибки: "${errorDesc}"</p>

@@ -37,20 +37,27 @@ public class ServiceTaskUserDataCheck implements JavaDelegate {
         log.info(BpmConst.PREFIX_TASK_LOG + "run ServiceTaskUserDataCheck: {}", execution);
         SpinJsonNode jsonData = JSON(String.format("{ \"%s\" : -1, \"%s\" : -1, \"%s\" : -1, \"%s\" : -1}", BpmConst.JSON_STEEL_VALUE_PARAM, BpmConst.JSON_STEEL_MODEL_PARAM, BpmConst.JSON_ERROR_CODE_PARAM, BpmConst.JSON_ERROR_DESC_PARAM));
 
+        String strSteelModel = null;
+        String strPercent = null;
         try {
 
             //проверка на марку стали
-            String strSteelPercentValue = (String) execution.getVariable(BpmConst.MESSAGE_PARAM_SteelModelName);
-            ValueParser.checkValidValue(strSteelPercentValue, BpmConst.MESSAGE_PARAM_SteelModelName_FOR_USER, BpmConst.VALID_STEEL_SET);
+            strSteelModel = (String) execution.getVariable(BpmConst.MESSAGE_PARAM_SteelModelName);
+            ValueParser.checkValidValue(strSteelModel, BpmConst.LABEL_SteelModelName_FOR_USER, BpmConst.VALID_STEEL_SET);
+            jsonData.prop(BpmConst.JSON_STEEL_MODEL_PARAM, strSteelModel);
 
             //проверка ввода процестов стали
-            int intSteelPercentValue = ValueParser.parseInt(strSteelPercentValue, BpmConst.MESSAGE_PARAM_SteelPercentValue_FOR_USER);
-            jsonData.prop(BpmConst.JSON_STEEL_VALUE_PARAM, intSteelPercentValue);
-            jsonData.prop(BpmConst.JSON_STEEL_MODEL_PARAM, strSteelPercentValue);
+            strPercent = (String) execution.getVariable(BpmConst.MESSAGE_PARAM_SteelPercentValue);
+            int intPercent = ValueParser.parseInt(strPercent, BpmConst.LABEL_SteelPercentValue_FOR_USER);
+            jsonData.prop(BpmConst.JSON_STEEL_VALUE_PARAM, Integer.toString(intPercent));
+
             jsonData.prop(BpmConst.JSON_ERROR_CODE_PARAM, BpmConst.JSON_ERROR_CODE_SUCCESS_VALUE);
+            jsonData.prop(BpmConst.JSON_ERROR_DESC_PARAM, TypeException.OK.getDescError());
 
         } catch (Exception ex) {
-            AppException appEx = ex instanceof AppException ? (AppException) ex : new AppException(TypeException.SYSTEM_ERROR, "Ошибка в ServiceTaskUserDataCheck", null, ex);
+            String args = "strSteelModel= " + strSteelModel + ", strPercent=" + strPercent;
+
+            AppException appEx = ex instanceof AppException ? (AppException) ex : new AppException(TypeException.SYSTEM_ERROR, "Ошибка в ServiceTaskUserDataCheck", args, ex);
             jsonData.prop(BpmConst.JSON_ERROR_DESC_PARAM, appEx.getMsg());
             jsonData.prop(BpmConst.JSON_ERROR_CODE_PARAM, appEx.getType().toString());
 
