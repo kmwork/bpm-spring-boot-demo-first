@@ -13,7 +13,7 @@
 <body class="security-app">
 <div class="lc-block">
 	<%--@elvariable id="steelBpmData" type="ru.lanit.steel.dao.SteelBpmData"--%>
-	<form:form method="post" action="/k2/askBpmPagePost"
+	<form:form method="post" action="/lanit-bpm-app/askBpmPagePost"
 			   modelAttribute="steelBpmData">
 		<h3>Плиз, введите данные марку стали для расчета мат. модели</h3>
 		<table>

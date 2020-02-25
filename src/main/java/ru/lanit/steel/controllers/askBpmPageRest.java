@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ru.lanit.steel.bpm.config.BpmConst;
+import ru.lanit.steel.config.AppConst;
 import ru.lanit.steel.dao.BpmStatusForJSP;
 import ru.lanit.steel.dao.SessionBpmStatusDataQuery;
 
 @Controller
 @Slf4j
-@RequestMapping("/lanit-bpm-app")
+@RequestMapping(AppConst.APP_REST_PREFIX_URL)
 public class askBpmPageRest {
 
 

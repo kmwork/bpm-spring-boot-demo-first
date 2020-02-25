@@ -1,14 +1,11 @@
 package ru.lanit.steel.config;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.nio.charset.Charset;
 
 /**
  * Главные константы приложения
  */
-@Slf4j
-public class AppConst {
+public interface AppConst {
     public static final String LOG_PREFIX_APP = "[Latin-BPM-APP: Kostya-Demo-V1] ";
     //профили спринга
     public static final String TESTING_DB_H2_PROFILE = "testing_db_h2";
@@ -18,6 +15,8 @@ public class AppConst {
 
 
     public final static String KOSTYA_AGE = "500";
+
+    public final static String APP_REST_PREFIX_URL = "/lanit-bpm-app";
 
 
 }
