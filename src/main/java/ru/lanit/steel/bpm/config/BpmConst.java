@@ -12,6 +12,7 @@ public class BpmConst {
 
     public static final String PREFIX_TASK_LOG = "[Lanit:TASK] ";
     public static final String MESSAGE_TASK_STEEL_ERROR = "Сорри, но сталь будет не достаточно прочной";
+    public static final String MESSAGE_TASK_STEEL_INVALID_DATA_ERROR = "Повторите ввод данных, Вы ошиблись!";
     public static final String MESSAGE_TASK_STEEL_OK = "Будет хорошая сталь";
 
     public static final String JSON_BPM_ERROR_VALUE = "BPM:Value:ERROR";
@@ -21,6 +22,8 @@ public class BpmConst {
     public static final String JSON_ERROR_DESC_PARAM = "jsonErrorDescBPM";
     public static final String JSON_ERROR_CODE_PARAM = "jsonErrorCodeBPM";
     public static final String JSON_STEEL_MODEL_PARAM = "jsonSteelModelName";
+
+    public static final String JSON_ROOT_NAME = "jsonLatinRoot";
 
 
     public static final Set<String> VALID_STEEL_SET = new HashSet<>();

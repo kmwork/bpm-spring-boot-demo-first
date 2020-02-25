@@ -22,6 +22,7 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import ru.lanit.steel.bpm.config.BpmConst;
 import ru.lanit.steel.dao.BpmStatusForJSP;
 import ru.lanit.steel.dao.SessionBpmStatusDataQuery;
+import ru.lanit.steel.utils.TypeException;
 
 @Slf4j
 public class ServiceTaskShowError implements JavaDelegate {
@@ -31,7 +32,7 @@ public class ServiceTaskShowError implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         log.info(BpmConst.PREFIX_TASK_LOG + " run ServiceTaskShowError: {}", execution);
         SessionBpmStatusDataQuery query = SessionBpmStatusDataQuery.getInstance();
-        BpmStatusForJSP userMessage = new BpmStatusForJSP(true, BpmConst.MESSAGE_TASK_STEEL_ERROR);
+        BpmStatusForJSP userMessage = new BpmStatusForJSP(TypeException.OK, BpmConst.MESSAGE_TASK_STEEL_ERROR);
         query.addMessage(userMessage);
 
     }

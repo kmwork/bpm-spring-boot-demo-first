@@ -5,137 +5,194 @@
              id="sid-0b0aaa25-3baf-4875-9d7a-0907d599a9ef" targetNamespace="http://camunda.org/examples"
              exporter="Camunda Modeler" exporterVersion="3.6.0"
              xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
-    <process id="process_json_k2" name="process_json_k2" isExecutable="true">
-        <startEvent id="StartEvent_1" name="Начало проверки" camunda:formKey="embedded:app:forms/start-form.html">
-            <outgoing>Flow_12badi4</outgoing>
-        </startEvent>
-        <exclusiveGateway id="ExclusiveGateway_1" name="Будет качественная сталь ?">
-            <incoming>Flow_0say2o8</incoming>
-            <outgoing>SequenceFlow_5</outgoing>
-            <outgoing>SequenceFlow_4</outgoing>
-        </exclusiveGateway>
-        <sequenceFlow id="SequenceFlow_5" name="меньше 21 процентов" sourceRef="ExclusiveGateway_1"
-                      targetRef="TK3-ShowError">
-            <conditionExpression xsi:type="tFormalExpression">
-                ${steel.prop("steelPercentValueBPM").numberValue() &lt; 21 }
-            </conditionExpression>
-        </sequenceFlow>
-        <endEvent id="EndSuccess-10" name="Финиш без ошибок">
-            <incoming>SequenceFlow_6</incoming>
-        </endEvent>
-        <endEvent id="EndError-20" name="Финиш с ошибкой">
-            <incoming>SequenceFlow_7</incoming>
-        </endEvent>
-        <sequenceFlow id="SequenceFlow_7" name="" sourceRef="TK3-ShowError" targetRef="EndError-20"/>
-        <sequenceFlow id="SequenceFlow_6" name="" sourceRef="TK2-ShowOK21" targetRef="EndSuccess-10"/>
-        <sequenceFlow id="SequenceFlow_4" name="не менее 21 процентов" sourceRef="ExclusiveGateway_1"
-                      targetRef="TK2-ShowOK21">
-            <conditionExpression xsi:type="tFormalExpression">
-                ${steel.prop("steelPercentValueBPM").numberValue() &gt;= 21}
-            </conditionExpression>
-        </sequenceFlow>
-        <serviceTask id="TK3-ShowError" name="Вывод ошибки"
-                     camunda:class="ru.lanit.steel.bpm.task.ServiceTaskShowError">
-            <incoming>SequenceFlow_5</incoming>
-            <outgoing>SequenceFlow_7</outgoing>
-        </serviceTask>
-        <serviceTask id="TK2-ShowOK21" name="Проверка прошла успешно"
-                     camunda:class="ru.lanit.steel.bpm.task.ServiceTaskRunForSuccess">
-            <incoming>SequenceFlow_4</incoming>
-            <outgoing>SequenceFlow_6</outgoing>
-        </serviceTask>
-        <receiveTask id="WaitUserJspKostyaID-001" name="Ожидание формы ввода данных в браузере"
-                     messageRef="Message-K-ID1">
-            <incoming>Flow_12badi4</incoming>
-            <outgoing>Flow_18sdyj5</outgoing>
-        </receiveTask>
-        <sequenceFlow id="Flow_12badi4" sourceRef="StartEvent_1" targetRef="WaitUserJspKostyaID-001"/>
-        <sequenceFlow id="Flow_18sdyj5" sourceRef="WaitUserJspKostyaID-001" targetRef="Activity_User01"/>
-        <sequenceFlow id="Flow_0say2o8" sourceRef="Activity_User01" targetRef="ExclusiveGateway_1"/>
-        <serviceTask id="Activity_User01" name="Валидация ввода от пользователя"
-                     camunda:class="ru.lanit.steel.bpm.task.ServiceTaskUserDataCheck">
-            <incoming>Flow_18sdyj5</incoming>
-            <outgoing>Flow_0say2o8</outgoing>
-        </serviceTask>
-    </process>
-    <message id="Message-K-ID1" name="MessageNameSteelPercentValue01"/>
-    <bpmndi:BPMNDiagram id="_BPMNDiagram_3">
-        <bpmndi:BPMNPlane id="_BPMNPlane_3" bpmnElement="process_json_k2">
-            <bpmndi:BPMNShape id="_BPMNShape_StartEvent_4" bpmnElement="StartEvent_1">
-                <omgdc:Bounds x="182" y="192" width="36" height="36"/>
-                <bpmndi:BPMNLabel>
-                    <omgdc:Bounds x="158" y="235" width="89" height="14"/>
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="_BPMNShape_ExclusiveGateway_2" bpmnElement="ExclusiveGateway_1"
-                              isMarkerVisible="true">
-                <omgdc:Bounds x="800" y="185" width="50" height="50"/>
-                <bpmndi:BPMNLabel>
-                    <omgdc:Bounds x="745" y="160" width="70" height="40"/>
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5"
-                             sourceElement="_BPMNShape_ExclusiveGateway_2" targetElement="Activity_1g6a5xl_di">
-                <omgdi:waypoint x="825" y="235"/>
-                <omgdi:waypoint x="825" y="289"/>
-                <omgdi:waypoint x="902" y="289"/>
-                <bpmndi:BPMNLabel>
-                    <omgdc:Bounds x="832" y="256" width="56" height="27"/>
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNShape id="_BPMNShape_EndEvent_3" bpmnElement="EndSuccess-10">
-                <omgdc:Bounds x="1092" y="112" width="36" height="36"/>
-                <bpmndi:BPMNLabel>
-                    <omgdc:Bounds x="1087" y="155" width="56" height="27"/>
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="_BPMNShape_EndEvent_4" bpmnElement="EndError-20">
-                <omgdc:Bounds x="1092" y="271" width="36" height="36"/>
-                <bpmndi:BPMNLabel>
-                    <omgdc:Bounds x="1091" y="314" width="45" height="27"/>
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7"
-                             sourceElement="Activity_1g6a5xl_di" targetElement="_BPMNShape_EndEvent_4">
-                <omgdi:waypoint x="1002" y="289"/>
-                <omgdi:waypoint x="1092" y="289"/>
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6">
-                <omgdi:waypoint x="1010" y="130"/>
-                <omgdi:waypoint x="1092" y="130"/>
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4">
-                <omgdi:waypoint x="825" y="185"/>
-                <omgdi:waypoint x="825" y="130"/>
-                <omgdi:waypoint x="910" y="130"/>
-                <bpmndi:BPMNLabel>
-                    <omgdc:Bounds x="838" y="96" width="63" height="27"/>
-                </bpmndi:BPMNLabel>
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNShape id="Activity_1g6a5xl_di" bpmnElement="TK3-ShowError">
-                <omgdc:Bounds x="902" y="249" width="100" height="80"/>
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="Activity_0v6m5uv_di" bpmnElement="TK2-ShowOK21">
-                <omgdc:Bounds x="910" y="90" width="100" height="80"/>
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape id="Activity_10jso7v_di" bpmnElement="WaitUserJspKostyaID-001">
-                <omgdc:Bounds x="330" y="170" width="100" height="80"/>
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNEdge id="Flow_12badi4_di" bpmnElement="Flow_12badi4">
-                <omgdi:waypoint x="218" y="210"/>
-                <omgdi:waypoint x="330" y="210"/>
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNEdge id="Flow_18sdyj5_di" bpmnElement="Flow_18sdyj5">
-                <omgdi:waypoint x="430" y="210"/>
-                <omgdi:waypoint x="570" y="210"/>
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNEdge id="Flow_0say2o8_di" bpmnElement="Flow_0say2o8">
-                <omgdi:waypoint x="670" y="210"/>
-                <omgdi:waypoint x="800" y="210"/>
-            </bpmndi:BPMNEdge>
-            <bpmndi:BPMNShape id="Activity_0yem4ab_di" bpmnElement="Activity_User01">
-                <omgdc:Bounds x="570" y="170" width="100" height="80"/>
-            </bpmndi:BPMNShape>
-        </bpmndi:BPMNPlane>
+  <process id="process_json_k2" name="process_json_k2" isExecutable="true">
+    <startEvent id="StartEvent_1" name="Начало проверки" camunda:formKey="embedded:app:forms/start-form.html">
+      <outgoing>Flow_OnStart</outgoing>
+    </startEvent>
+    <exclusiveGateway id="SwitchNum-ByPersent" name="Проверка на процент нужной марки стали">
+      <incoming>Flow_NoUserError</incoming>
+      <outgoing>Case-Small-Percent</outgoing>
+      <outgoing>Case-Normal-Percent</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="Case-Small-Percent" name="меньше 21 процентов" sourceRef="SwitchNum-ByPersent"
+                  targetRef="ServiceTaskShowError-ID">
+      <conditionExpression xsi:type="tFormalExpression">
+        ${jsonLatinRoot.prop("steelPercentValueBPM").numberValue() &lt; 21 }
+      </conditionExpression>
+    </sequenceFlow>
+    <endEvent id="EndSuccess-10" name="Финиш без ошибок">
+      <incoming>SequenceFlow_6</incoming>
+    </endEvent>
+    <endEvent id="EndError-20" name="Финиш с ошибкой">
+      <incoming>SequenceFlow_7</incoming>
+    </endEvent>
+    <sequenceFlow id="SequenceFlow_7" name="" sourceRef="ServiceTaskShowError-ID" targetRef="EndError-20"/>
+    <sequenceFlow id="SequenceFlow_6" name="" sourceRef="ServiceTaskRunForSuccess-ID" targetRef="EndSuccess-10"/>
+    <sequenceFlow id="Case-Normal-Percent" name="не менее 21 процентов" sourceRef="SwitchNum-ByPersent"
+                  targetRef="ServiceTaskRunForSuccess-ID">
+      <conditionExpression xsi:type="tFormalExpression">
+        ${jsonLatinRoot.prop("steelPercentValueBPM").numberValue() &gt;= 21}
+      </conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="ServiceTaskShowError-ID" name="Вывод ошибки"
+                 camunda:class="ru.lanit.steel.bpm.task.ServiceTaskShowError">
+      <incoming>Case-Small-Percent</incoming>
+      <outgoing>SequenceFlow_7</outgoing>
+    </serviceTask>
+    <serviceTask id="ServiceTaskRunForSuccess-ID" name="Проверка прошла успешно"
+                 camunda:class="ru.lanit.steel.bpm.task.ServiceTaskRunForSuccess">
+      <incoming>Case-Normal-Percent</incoming>
+      <outgoing>SequenceFlow_6</outgoing>
+    </serviceTask>
+    <receiveTask id="WaitUserJspKostyaID-001" name="Ожидание формы ввода данных в браузере"
+                 default="Flow_SubmitUserFormJSP" messageRef="Message-K-ID1">
+      <incoming>Flow_OnStart</incoming>
+      <incoming>Flow_ReturnToInputByUser</incoming>
+      <outgoing>Flow_SubmitUserFormJSP</outgoing>
+    </receiveTask>
+    <sequenceFlow id="Flow_OnStart" sourceRef="StartEvent_1" targetRef="WaitUserJspKostyaID-001"/>
+    <sequenceFlow id="Flow_SubmitUserFormJSP" sourceRef="WaitUserJspKostyaID-001"
+                  targetRef="ServiceTaskUserDataCheck-ID"/>
+    <serviceTask id="ServiceTaskUserDataCheck-ID" name="Валидация ввода от пользователя" default="Flow_ToUserValidation"
+                 camunda:class="ru.lanit.steel.bpm.task.ServiceTaskUserDataCheck">
+      <incoming>Flow_SubmitUserFormJSP</incoming>
+      <outgoing>Flow_ToUserValidation</outgoing>
+    </serviceTask>
+    <exclusiveGateway id="Case-On-Error-Switch-1" name="Проверка на процент нужной марки стали">
+      <incoming>Flow_ToUserValidation</incoming>
+      <outgoing>Flow_NoUserError</outgoing>
+      <outgoing>Flow_ByErrorOfSteelModel</outgoing>
+    </exclusiveGateway>
+    <sequenceFlow id="Flow_NoUserError" name="Нет ошибок" sourceRef="Case-On-Error-Switch-1"
+                  targetRef="SwitchNum-ByPersent">
+      <conditionExpression xsi:type="tFormalExpression">
+        ${ jsonLatinRoot.prop("jsonErrorCodeBPM") == "BPM:Value:Success" }
+      </conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="Flow_ByErrorOfSteelModel" name="Не верная марка стали&#10;&#10;"
+                  sourceRef="Case-On-Error-Switch-1" targetRef="ServiceTaskReturnForInputByUser-ID">
+      <conditionExpression xsi:type="tFormalExpression">
+        ${ jsonLatinRoot.prop("jsonErrorCodeBPM") !="BPM:Value:Success" }
+      </conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="ServiceTaskReturnForInputByUser-ID" name="Перезапук формы ввода данных пользователя"
+                 camunda:class="ru.lanit.steel.bpm.task.ServiceTaskReturnForInputByUser">
+      <incoming>Flow_ByErrorOfSteelModel</incoming>
+      <outgoing>Flow_ReturnToInputByUser</outgoing>
+    </serviceTask>
+    <sequenceFlow id="Flow_ReturnToInputByUser" sourceRef="ServiceTaskReturnForInputByUser-ID"
+                  targetRef="WaitUserJspKostyaID-001"/>
+    <sequenceFlow id="Flow_ToUserValidation" name="Идем на проверку данных" sourceRef="ServiceTaskUserDataCheck-ID"
+                  targetRef="Case-On-Error-Switch-1"/>
+  </process>
+  <message id="Message-K-ID1" name="MessageNameSteelPercentValue01"/>
+  <bpmndi:BPMNDiagram id="_BPMNDiagram_3">
+    <bpmndi:BPMNPlane id="_BPMNPlane_3" bpmnElement="process_json_k2">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_4" bpmnElement="StartEvent_1">
+        <omgdc:Bounds x="182" y="102" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="158" y="145" width="89" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_ExclusiveGateway_2" bpmnElement="SwitchNum-ByPersent" isMarkerVisible="true">
+        <omgdc:Bounds x="890" y="355" width="50" height="50"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="819" y="336" width="82" height="40"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="Case-Small-Percent"
+                       sourceElement="_BPMNShape_ExclusiveGateway_2" targetElement="Activity_1g6a5xl_di">
+        <omgdi:waypoint x="915" y="405"/>
+        <omgdi:waypoint x="915" y="459"/>
+        <omgdi:waypoint x="992" y="459"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="922" y="426" width="56" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_3" bpmnElement="EndSuccess-10">
+        <omgdc:Bounds x="1182" y="282" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1177" y="325" width="56" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_4" bpmnElement="EndError-20">
+        <omgdc:Bounds x="1182" y="441" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1181" y="484" width="45" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7" sourceElement="Activity_1g6a5xl_di"
+                       targetElement="_BPMNShape_EndEvent_4">
+        <omgdi:waypoint x="1092" y="459"/>
+        <omgdi:waypoint x="1182" y="459"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6">
+        <omgdi:waypoint x="1100" y="300"/>
+        <omgdi:waypoint x="1182" y="300"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="Case-Normal-Percent">
+        <omgdi:waypoint x="915" y="355"/>
+        <omgdi:waypoint x="915" y="300"/>
+        <omgdi:waypoint x="1000" y="300"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="928" y="266" width="63" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1g6a5xl_di" bpmnElement="ServiceTaskShowError-ID">
+        <omgdc:Bounds x="992" y="419" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0v6m5uv_di" bpmnElement="ServiceTaskRunForSuccess-ID">
+        <omgdc:Bounds x="1000" y="260" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_10jso7v_di" bpmnElement="WaitUserJspKostyaID-001">
+        <omgdc:Bounds x="330" y="80" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_12badi4_di" bpmnElement="Flow_OnStart">
+        <omgdi:waypoint x="218" y="120"/>
+        <omgdi:waypoint x="330" y="120"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18sdyj5_di" bpmnElement="Flow_SubmitUserFormJSP">
+        <omgdi:waypoint x="430" y="120"/>
+        <omgdi:waypoint x="570" y="120"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_0yem4ab_di" bpmnElement="ServiceTaskUserDataCheck-ID">
+        <omgdc:Bounds x="570" y="80" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1j1v1a8_di" bpmnElement="Case-On-Error-Switch-1" isMarkerVisible="true">
+        <omgdc:Bounds x="595" y="355" width="50" height="50"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="501" y="370" width="82" height="40"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1j5s7b0_di" bpmnElement="Flow_NoUserError">
+        <omgdi:waypoint x="645" y="380"/>
+        <omgdi:waypoint x="890" y="380"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="669" y="353" width="61" height="14"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0y5835x_di" bpmnElement="Flow_ByErrorOfSteelModel">
+        <omgdi:waypoint x="620" y="405"/>
+        <omgdi:waypoint x="620" y="520"/>
+        <omgdi:waypoint x="430" y="520"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="525" y="453" width="89" height="53"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_0nka45o_di" bpmnElement="ServiceTaskReturnForInputByUser-ID">
+        <omgdc:Bounds x="330" y="480" width="100" height="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0yhklbs_di" bpmnElement="Flow_ReturnToInputByUser">
+        <omgdi:waypoint x="380" y="480"/>
+        <omgdi:waypoint x="380" y="160"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bduu2f_di" bpmnElement="Flow_ToUserValidation">
+        <omgdi:waypoint x="620" y="160"/>
+        <omgdi:waypoint x="620" y="355"/>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="625" y="176" width="89" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </definitions>

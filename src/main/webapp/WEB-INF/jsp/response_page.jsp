@@ -4,23 +4,19 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ланит Демка для BPM Camunda - Ответ севиса</title>
+    <title>Ланит Демка для BPM Camunda - Ответ сервиса</title>
 </head>
 <body class="security-app">
-
 <div class="lc-block">
-
     <h1>**** Финищ ****</h1>
     <p> ID сообщенения: "${timeID}"</p>
-    <p> Признак ошибки: "${error}"</p>
+    <p> Код ошибки: "${codeError}" (если 0, тогда все ок)</p>
+    <p> Признак ошибки: "${errorDesc}"</p>
     <p> Статус исполнения BPM модели: "${bpmStatus}"</p>
-
-
+    <a href="/lanit-bpm-app/askBpmPagePost">В случае ошибки повторите ввод данных</a>
 </div>
-
 </body>
 </html>

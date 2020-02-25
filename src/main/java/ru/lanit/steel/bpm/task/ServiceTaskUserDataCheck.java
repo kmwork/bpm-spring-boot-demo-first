@@ -52,7 +52,7 @@ public class ServiceTaskUserDataCheck implements JavaDelegate {
 
             //формирование json в BPM модель
             log.info("JSON for BPM: {}", jsonData);
-            execution.setVariable("steel", jsonData);
+            execution.setVariable(BpmConst.JSON_ROOT_NAME, jsonData);
         } catch (Exception ex) {
             AppException appEx = ex instanceof AppException ? (AppException) ex : new AppException(TypeException.SYSTEM_ERROR, "Ошибка в ServiceTaskUserDataCheck", null, ex);
             jsonData.prop(BpmConst.JSON_ERROR_DESC_PARAM, appEx.getMsg());
@@ -62,7 +62,7 @@ public class ServiceTaskUserDataCheck implements JavaDelegate {
             jsonData.prop(BpmConst.JSON_STEEL_MODEL_PARAM, BpmConst.JSON_BPM_ERROR_VALUE);
 
         }
-
+        execution.setVariable(BpmConst.JSON_ROOT_NAME, jsonData);
 
     }
 

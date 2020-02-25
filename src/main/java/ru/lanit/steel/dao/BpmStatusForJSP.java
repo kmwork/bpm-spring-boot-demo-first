@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ru.lanit.steel.utils.TypeException;
 
 @AllArgsConstructor
 @ToString
@@ -13,8 +14,8 @@ public class BpmStatusForJSP {
 
     @Getter
     @Setter
-    private boolean isError;
+    private TypeException typeException;
     @Getter
     @Setter
-    private String desc;
+    private String descForUser;
 }

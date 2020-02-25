@@ -37,9 +37,10 @@ public class askBpmPageRest {
         BpmStatusForJSP mes = query.readMessage();
         ModelAndView mv = new ModelAndView();
 
-        mv.addObject("bpmStatus", mes.getDesc());
+        mv.addObject("bpmStatus", mes.getDescForUser());
         mv.addObject("timeID", mes.getMessageId());
-        mv.addObject("error", Boolean.toString(mes.isError()));
+        mv.addObject("codeError", mes.getTypeException().getCodeError());
+        mv.addObject("errorDesc", mes.getTypeException().getDescError());
 
         mv.setViewName("response_page");
         return mv;

@@ -16,6 +16,7 @@
  */
 package ru.lanit.steel.bpm.task;
 
+
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -25,16 +26,19 @@ import ru.lanit.steel.dao.SessionBpmStatusDataQuery;
 import ru.lanit.steel.utils.TypeException;
 
 @Slf4j
-public class ServiceTaskRunForSuccess implements JavaDelegate {
+public class ServiceTaskReturnForInputByUser implements JavaDelegate {
 
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        log.info(BpmConst.PREFIX_TASK_LOG + " run ServiceTaskRunForSuccess: {}", execution);
+        log.info(BpmConst.PREFIX_TASK_LOG + " run ServiceTaskReturnForInputByUser: {}", execution);
         SessionBpmStatusDataQuery query = SessionBpmStatusDataQuery.getInstance();
-        BpmStatusForJSP userMessage = new BpmStatusForJSP(TypeException.OK, BpmConst.MESSAGE_TASK_STEEL_OK);
+        BpmStatusForJSP userMessage = new BpmStatusForJSP(TypeException.INVALID_USER_INPUT_DATA, BpmConst.MESSAGE_TASK_STEEL_INVALID_DATA_ERROR);
         query.addMessage(userMessage);
-
     }
 
 }
+
+
+
+
