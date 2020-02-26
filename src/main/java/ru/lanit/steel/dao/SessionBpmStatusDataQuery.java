@@ -30,7 +30,7 @@ public class SessionBpmStatusDataQuery {
 
     public BpmStatusForJSP readMessage(String serviceTaskName) throws InterruptedException {
         log.info(PREFIX_LOG + "[----][Task: " + serviceTaskName + "] stating for read message");
-        BpmStatusForJSP val = blockingDeque.pollLast(5, TimeUnit.MINUTES);
+        BpmStatusForJSP val = blockingDeque.pollFirst(5, TimeUnit.MINUTES);
         log.info(PREFIX_LOG + "[----]: success for read message: " + val);
         return val;
     }
