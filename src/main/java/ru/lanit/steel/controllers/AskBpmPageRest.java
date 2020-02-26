@@ -2,7 +2,7 @@ package ru.lanit.steel.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,16 +19,17 @@ import ru.lanit.steel.ui.UserConst;
 @Controller
 @Slf4j
 @RequestMapping(AppConst.APP_REST_PREFIX_URL)
-public class askBpmPageRest {
+public class AskBpmPageRest {
 
+    private static final String PREFIX_LOG = "[Latin:AskBpmPageRest] ";
 
     @Autowired
-    private ProcessEngine camunda;
+    private RuntimeService runtimeService;
 
     @RequestMapping(value = "/askBpmPagePost", method = RequestMethod.POST)
     public ModelAndView formPost(@ModelAttribute("steelBpmData") ru.lanit.steel.dao.SteelBpmData form,
                                  BindingResult result) throws InterruptedException {
-        log.info("[Kostya-RestController] steelBpmData = " + form);
+        log.info(PREFIX_LOG + "formPost: steelBpmData = " + form);
 
 
         String model = form.getSteelModelName();
@@ -39,7 +40,7 @@ public class askBpmPageRest {
         percent = StringUtils.isEmpty(percent) ? UserConst.USER_EMPTY_VALUE : percent.toUpperCase().trim();
 
 
-        camunda.getRuntimeService().createMessageCorrelation("MessageNameSteelPercentValue01")
+        runtimeService.createMessageCorrelation("MessageNameSteelPercentValue01")
                 .setVariable(BpmConst.MESSAGE_PARAM_SteelPercentValue, percent)
                 .setVariable(BpmConst.MESSAGE_PARAM_SteelModelName, model)
                 .correlate();
@@ -53,15 +54,18 @@ public class askBpmPageRest {
         mv.addObject("errorDesc", mes.getTypeException().getDescError());
         mv.addObject("errorTechnicalDesc", mes.getErrorTechnicalDesc());
         mv.setViewName("response_page");
+        log.info(PREFIX_LOG + "formPost: end");
         return mv;
     }
 
     @RequestMapping(value = "/askBpmPageGet", method = RequestMethod.GET)
     public ModelAndView formGet() throws InterruptedException {
+        log.info(PREFIX_LOG + "formGet");
         ModelAndView mv = new ModelAndView();
         ru.lanit.steel.dao.SteelBpmData model = new ru.lanit.steel.dao.SteelBpmData();
         mv.addObject("steelBpmData", model);
         mv.setViewName("form_page");
+        log.info(PREFIX_LOG + "formPost: end");
         return mv;
     }
 

@@ -9,14 +9,14 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class SessionBpmStatusDataQuery {
 
-    private static final String PREFIX_LOG = "[Kostya:LOCKER] ";
+    private static final String PREFIX_LOG = "[Lanit:SessionBpmStatusDataQuery] ";
 
 
     @Getter
     private static final SessionBpmStatusDataQuery instance = new SessionBpmStatusDataQuery();
 
     private SessionBpmStatusDataQuery() {
-        log.info("[KOSTYA]-SessionBpmStatusDataQuery: init");
+        log.info(PREFIX_LOG + " init");
     }
 
 
