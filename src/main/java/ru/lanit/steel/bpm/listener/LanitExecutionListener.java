@@ -33,19 +33,25 @@ public class LanitExecutionListener implements ExecutionListener {
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
 
         String eventName = execution.getEventName();
-        long deftaMS = -1;
-        if (eventName.equals("start")) {
-            startTimeMS = currentTimeMS;
-            d.setBpmWorkStatus("Запущена задача");
+        switch (eventName) {
+            case "start":
+                startTimeMS = currentTimeMS;
+                d.setBpmWorkStatus("Запущена задача");
+                break;
 
-        } else if (eventName.equals("end")) {
-            deftaMS = currentTimeMS - startTimeMS;
-            d.setBpmWorkStatus("Завершена задача, затрачено = " + deftaMS + " (миллисекунд)");
+            case "end":
+                long deltaMS = currentTimeMS - startTimeMS;
+                d.setBpmWorkStatus("Завершена задача, затрачено = " + deltaMS + " (миллисекунд)");
+                break;
 
-        } else if (eventName.equals("take"))
-            d.setBpmWorkStatus("В процессе выполнения (взята в работу если это UserTask)");
-        else
-            d.setBpmWorkStatus("Статус не распознан: '" + eventName + "'");
+            case "take":
+                d.setBpmWorkStatus("В процессе выполнения (взята в работу если это UserTask)");
+                break;
+
+            default:
+                d.setBpmWorkStatus("Статус не распознан: '" + eventName + "'");
+                break;
+        }
 
 
         BpmDiagnosticQuery.getInstance().addDiagnostic(d);
