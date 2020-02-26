@@ -3,9 +3,13 @@
              xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
              xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
              id="sid-0b0aaa25-3baf-4875-9d7a-0907d599a9ef" targetNamespace="http://camunda.org/examples"
-             exporter="Camunda Modeler" exporterVersion="3.6.0"
+             exporter="Camunda Modeler" exporterVersion="3.7.0"
              xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
   <process id="process_json_k2" name="process_json_k2" isExecutable="true">
+    <extensionElements>
+      <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="end"/>
+      <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="start"/>
+    </extensionElements>
     <startEvent id="StartEvent_1" name="Начало проверки" camunda:formKey="embedded:app:forms/start-form.html">
       <outgoing>Flow_OnStart</outgoing>
     </startEvent>

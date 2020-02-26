@@ -27,6 +27,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import ru.lanit.steel.beans.Showcase;
 import ru.lanit.steel.config.AppConst;
 
+import javax.annotation.PostConstruct;
+
 @SpringBootApplication
 @EnableScheduling
 @EnableWebMvc
@@ -64,8 +66,14 @@ public class LanitSteelBpmApp implements CommandLineRunner {
     @Autowired
     private ProcessApplicationInterface application;
 
+
     @Value("${org.camunda.bpm.spring.boot.starter.example.simple.SimpleApplication.exitWhenFinished:true}")
     private boolean exitWhenFinished;
+
+    @PostConstruct
+    public void init() {
+        logger.info("[LANIT:APP] init");
+    }
 
     @EventListener
     public void onPostDeploy(PostDeployEvent event) {

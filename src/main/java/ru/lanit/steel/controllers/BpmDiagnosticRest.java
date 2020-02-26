@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +20,7 @@ public class BpmDiagnosticRest {
     private RuntimeService runtimeService;
 
     @RequestMapping(value = "/bpmDiagnosticGet", method = RequestMethod.GET)
-    public ModelAndView formGet(BindingResult result) throws InterruptedException {
+    public ModelAndView formGet() throws InterruptedException {
         log.info(PREFIX_LOG + "formGet: start");
         ModelAndView mv = new ModelAndView();
         BpmDiagnosticData mes = BpmDiagnosticQuery.getInstance().readDiagnostic();
