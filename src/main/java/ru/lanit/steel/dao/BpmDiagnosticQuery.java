@@ -30,7 +30,7 @@ public class BpmDiagnosticQuery {
 
     public BpmDiagnosticData readDiagnostic() throws InterruptedException {
         log.info(PREFIX_LOG + "[======] stating for read diagnostic");
-        BpmDiagnosticData val = blockingDeque.poll(5, TimeUnit.MINUTES);
+        BpmDiagnosticData val = blockingDeque.pollFirst(5, TimeUnit.MINUTES);
         log.info(PREFIX_LOG + "[======]: success for read diagnostic: " + val);
         return val;
     }

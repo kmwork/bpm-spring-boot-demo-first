@@ -11,9 +11,17 @@
       <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="start"/>
     </extensionElements>
     <startEvent id="StartEvent_1" name="Начало проверки" camunda:formKey="embedded:app:forms/start-form.html">
+      <extensionElements>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="start"/>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="end"/>
+      </extensionElements>
       <outgoing>Flow_OnStart</outgoing>
     </startEvent>
     <exclusiveGateway id="SwitchNum-ByPersent" name="Проверка на процент нужной марки стали">
+      <extensionElements>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="start"/>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="end"/>
+      </extensionElements>
       <incoming>Flow_NoUserError</incoming>
       <outgoing>Case-Small-Percent</outgoing>
       <outgoing>Case-Normal-Percent</outgoing>
@@ -25,9 +33,17 @@
       </conditionExpression>
     </sequenceFlow>
     <endEvent id="EndSuccess-10" name="Финиш без ошибок">
+      <extensionElements>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="start"/>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="end"/>
+      </extensionElements>
       <incoming>SequenceFlow_6</incoming>
     </endEvent>
     <endEvent id="EndError-20" name="Финиш с ошибкой">
+      <extensionElements>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="start"/>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="end"/>
+      </extensionElements>
       <incoming>SequenceFlow_7</incoming>
     </endEvent>
     <sequenceFlow id="SequenceFlow_7" name="" sourceRef="ServiceTaskShowError-ID" targetRef="EndError-20"/>
@@ -40,16 +56,28 @@
     </sequenceFlow>
     <serviceTask id="ServiceTaskShowError-ID" name="Вывод ошибки"
                  camunda:class="ru.lanit.steel.bpm.task.ServiceTaskShowError">
+      <extensionElements>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="start"/>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="end"/>
+      </extensionElements>
       <incoming>Case-Small-Percent</incoming>
       <outgoing>SequenceFlow_7</outgoing>
     </serviceTask>
     <serviceTask id="ServiceTaskRunForSuccess-ID" name="Проверка прошла успешно"
                  camunda:class="ru.lanit.steel.bpm.task.ServiceTaskRunForSuccess">
+      <extensionElements>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="start"/>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="end"/>
+      </extensionElements>
       <incoming>Case-Normal-Percent</incoming>
       <outgoing>SequenceFlow_6</outgoing>
     </serviceTask>
     <receiveTask id="WaitUserJspKostyaID-001" name="Ожидание формы ввода данных в браузере"
                  default="Flow_SubmitUserFormJSP" messageRef="Message-K-ID1">
+      <extensionElements>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="start"/>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="end"/>
+      </extensionElements>
       <incoming>Flow_OnStart</incoming>
       <incoming>Flow_ReturnToInputByUser</incoming>
       <outgoing>Flow_SubmitUserFormJSP</outgoing>
@@ -59,10 +87,18 @@
                   targetRef="ServiceTaskUserDataCheck-ID"/>
     <serviceTask id="ServiceTaskUserDataCheck-ID" name="Валидация ввода от пользователя" default="Flow_ToUserValidation"
                  camunda:class="ru.lanit.steel.bpm.task.ServiceTaskUserDataCheck">
+      <extensionElements>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="start"/>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="end"/>
+      </extensionElements>
       <incoming>Flow_SubmitUserFormJSP</incoming>
       <outgoing>Flow_ToUserValidation</outgoing>
     </serviceTask>
     <exclusiveGateway id="Case-On-Error-Switch-1" name="Проверка на процент нужной марки стали">
+      <extensionElements>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="start"/>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="end"/>
+      </extensionElements>
       <incoming>Flow_ToUserValidation</incoming>
       <outgoing>Flow_NoUserError</outgoing>
       <outgoing>Flow_ByErrorOfSteelModel</outgoing>
@@ -81,6 +117,10 @@
     </sequenceFlow>
     <serviceTask id="ServiceTaskReturnForInputByUser-ID" name="Перезапук формы ввода данных пользователя"
                  camunda:class="ru.lanit.steel.bpm.task.ServiceTaskReturnForInputByUser">
+      <extensionElements>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="start"/>
+        <camunda:executionListener class="ru.lanit.steel.bpm.listener.LanitExecutionListener" event="end"/>
+      </extensionElements>
       <incoming>Flow_ByErrorOfSteelModel</incoming>
       <outgoing>Flow_ReturnToInputByUser</outgoing>
     </serviceTask>
