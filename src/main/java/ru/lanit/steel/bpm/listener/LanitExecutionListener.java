@@ -6,6 +6,8 @@ import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.ExecutionListener;
+import ru.lanit.steel.bpm.context.LanitBpmContext;
+import ru.lanit.steel.bpm.context.TimeControlInfoByTask;
 import ru.lanit.steel.dao.BpmDiagnosticData;
 import ru.lanit.steel.dao.BpmDiagnosticQuery;
 
@@ -16,6 +18,7 @@ import java.text.SimpleDateFormat;
 public class LanitExecutionListener implements ExecutionListener {
 
     private long startTimeMS = 0;
+
 
     @Override
     public void notify(DelegateExecution execution) throws Exception {
@@ -32,16 +35,18 @@ public class LanitExecutionListener implements ExecutionListener {
         d.setBpmTaskId(execution.getCurrentActivityId());
         DateFormat df = new SimpleDateFormat("HH:mm:ss");
 
+        LanitBpmContext bpmContext = LanitBpmContext.getInstance();
         String eventName = execution.getEventName();
         switch (eventName) {
             case "start":
-                startTimeMS = currentTimeMS;
+                bpmContext.startTimer(taskId);
                 d.setBpmWorkStatus("Запущена задача");
                 break;
 
             case "end":
-                long deltaMS = currentTimeMS - startTimeMS;
-                d.setBpmWorkStatus("Завершена задача, затрачено = " + deltaMS + " (миллисекунд)");
+                TimeControlInfoByTask timer = bpmContext.finishTimerForTask(taskId);
+                String strDeltaMS = timer == null || timer.getDeltaTimeMS() == TimeControlInfoByTask.INVALID_MS ? "<Нет расчета времени>" : Long.toString(timer.getDeltaTimeMS()) + "(миллисекунд)";
+                d.setBpmWorkStatus("Завершена задача, затрачено = " + strDeltaMS);
                 break;
 
             case "take":
