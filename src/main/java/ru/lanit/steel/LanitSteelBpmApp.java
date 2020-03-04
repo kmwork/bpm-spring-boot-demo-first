@@ -41,7 +41,6 @@ public class LanitSteelBpmApp implements CommandLineRunner {
 
         System.setProperty("spring.profiles.active", AppConst.TESTING_DB_H2_PROFILE);
         System.setProperty("java.awt.headless", "false");
-        System.setProperty("java.awt.headless", "false");
         System.setProperty("file.encoding", "UTF8");
         SpringApplication.run(LanitSteelBpmApp.class, args);
     }
